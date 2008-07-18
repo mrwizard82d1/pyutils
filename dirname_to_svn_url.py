@@ -8,7 +8,7 @@ import os
 def dirname_to_svn_url(dirname):
     abs_dirname = os.path.abspath(dirname)
     drive, pathname = os.path.splitdrive(abs_dirname)
-    result = "file:///%s%s/" % (drive, pathname.replace("\\", "/"))
+    result = "file:///%s%s" % (drive, pathname.replace("\\", "/"))
     return result
 
 
