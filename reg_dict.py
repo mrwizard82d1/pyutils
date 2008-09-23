@@ -1,42 +1,46 @@
-"""Slightly magical Win32api Registry -> Dictionary-like-object wrapper"""
+# From the recipe at http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/174627
+# Corrections and additions have been made
 
-from __future__ import generators
+"""Slightly magical Win32api Registry -> Dictionary-like-object wrapper"""
 import win32api, win32con, cPickle
 
 class RegistryDict(object):
     def __init__(self, keyhandle = win32con.HKEY_LOCAL_MACHINE, keypath = [], flags = None):
         """If flags=None, then it will create the key.. otherwise pass a win32con.KEY_* sam"""
-        keyhandle = None
+        self.keyhandle = None
         self.open(keyhandle, keypath, flags)
 
+    @staticmethod
     def massageIncomingRegistryValue((obj, objtype)):
         if objtype == win32con.REG_BINARY and obj[:8]=='PyPickle':
             obj = obj[8:]
             return cPickle.loads(obj)
         elif objtype == win32con.REG_NONE:
             return None
-        elif objtype in (win32con.REG_SZ, win32con.REG_EXPAND_SZ, win32con.REG_RESOURCE_LIST, win32con.REG_LINK, win32con.REG_BINARY, win32con.REG_DWORD, win32con.REG_DWORD_LITTLE_ENDIAN, win32con.REG_DWORD_BIG_ENDIAN, win32con.REG_MULTI_SZ):
+        elif objtype in (win32con.REG_SZ, win32con.REG_EXPAND_SZ,
+                         win32con.REG_RESOURCE_LIST, win32con.REG_LINK,
+                         win32con.REG_BINARY, win32con.REG_DWORD,
+                         win32con.REG_DWORD_LITTLE_ENDIAN, win32con.REG_DWORD_BIG_ENDIAN,
+                         win32con.REG_MULTI_SZ):
             return obj
         raise NotImplementedError, "Registry type 0x%08X not supported" % (objtype,)
-    massageIncomingRegistryValue = staticmethod(massageIncomingRegistryValue)
 
-    def __getitem__(self, item):
-        item = str(item)
-        
+    def __getitem__(self, key):
         # is it data?
         try:
-            return self.massageIncomingRegistryValue(win32api.RegQueryValueEx(self.keyhandle, item))
+            return self.massageIncomingRegistryValue(win32api.RegQueryValueEx(self.keyhandle, key))
         except:
+            if key == '':
+                # Special case: this dictionary key means "default value"
+                raise KeyError, key
             pass
-
-        # it's probably a key then
+        # it's probably a registry key then
         try:
-            return RegistryDict(self.keyhandle, item, win32con.KEY_ALL_ACCESS)
+            return RegistryDict(self.keyhandle, key, win32con.KEY_ALL_ACCESS)
         except:
             pass
-
         # must not be there
-        raise KeyError, item
+        raise KeyError, key
     
     def has_key(self, key):
         return self.__contains__(key)
@@ -58,13 +62,16 @@ class RegistryDict(object):
         return self.__repr__()
 
     def __cmp__(self, other):
-        return cmp(self.copy(), other)
+        # Do the objects have the same state?
+        return self.keyhandle == other.keyhandle
 
     def __hash__(self):
         raise TypeError, "RegistryDict objects are unhashable"
   
     def clear(self):
-        for k in self.iterkeys():
+        keylist = list(self.iterkeys())
+        # Two-step to avoid changing the set while iterating over it
+        for k in keylist:
             del self[k]
     
     def iteritems_data(self):
@@ -73,7 +80,7 @@ class RegistryDict(object):
         try:
             while 1:
                 s, obj, objtype = win32api.RegEnumValue(self.keyhandle, i)
-                yield s, massageRegistryValue((obj, objtype))
+                yield s, self.massageIncomingRegistryValue((obj, objtype))
                 i += 1
         except:
             pass
@@ -82,7 +89,7 @@ class RegistryDict(object):
         i = 0
         try:
             while 1:
-                s, obj, objtype = win32api.RegEnumKey(self.keyhandle, i)
+                s = win32api.RegEnumKey(self.keyhandle, i)
                 yield s, RegistryDict(self.keyhandle, [s], access)
                 i += 1
         except:
@@ -128,8 +135,21 @@ class RegistryDict(object):
     def values(self, access=win32con.KEY_ALL_ACCESS):
         return list(self.itervalues(access))
         
-    def __delitem__(self, item):
-        win32api.RegDeleteValue(self.keyhandle, str(item))
+    def __delitem__(self, key):
+        # Delete a string value or a subkey, depending on the type
+        try:
+            item = self[key]
+        except:
+            return  # Silently ignore bad keys
+        itemtype = type(item)
+        if itemtype is str:
+            win32api.RegDeleteValue(self.keyhandle, key)
+        elif isinstance(item, RegistryDict):
+            # Delete everything in the subkey, then the subkey itself
+            item.clear()
+            win32api.RegDeleteKey(self.keyhandle, key)
+        else:
+            raise ValueError, "Unknown item type in RegistryDict"
   
     def __len__(self):
         return len(self.items())
@@ -187,9 +207,9 @@ class RegistryDict(object):
         if flags is None:
             for subkey in keypath:
                 keyhandle = win32api.RegCreateKey(keyhandle, subkey)
-            else:
-                for subkey in keypath:
-                    keyhandle = win32api.RegOpenKeyEx(keyhandle, subkey, 0, flags)
+        else:
+            for subkey in keypath:
+                keyhandle = win32api.RegOpenKeyEx(keyhandle, subkey, 0, flags)
         self.keyhandle = keyhandle
 
     def close(self):
