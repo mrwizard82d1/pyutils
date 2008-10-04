@@ -1,3 +1,6 @@
+#! /cygdrive/c/Python25/python.exe
+
+
 """Python script to list all installed software."""
 
 
@@ -22,12 +25,13 @@ def query_uninstallable(filter='.*', include_updates=False):
     
     updates_result = raw_result
     if not include_updates:
-      regexp = re.compile('KB\d+')
+      regexp = re.compile('KB\d+', re.IGNORECASE)
       updates_result = [n for n in raw_result if not regexp.search(n)]
       
     regexp = re.compile(filter)
     result = [n for n in updates_result if regexp.search(n)]
     return result
+
 
 if __name__ == '__main__':
     parser = OptionParser()
@@ -39,4 +43,3 @@ if __name__ == '__main__':
     names = query_uninstallable(filter=options.text)
     names.sort()
     print names
-    
