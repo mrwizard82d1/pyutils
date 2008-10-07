@@ -1,3 +1,6 @@
+#! python
+
+
 """File to convert the output of PATH to a list."""
 
 
