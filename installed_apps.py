@@ -1,10 +1,11 @@
-#! /cygdrive/c/Python25/python.exe
+#! python
 
 
 """Python script to list all installed software."""
 
 
 from optparse import OptionParser
+import pprint
 import re
 
 import win32con
@@ -20,16 +21,26 @@ def query_uninstallable(filter='.*', include_updates=False):
     raw_result = []
     for k in rd.keys():
         item = rd[k]
+        
+        display_name = ''
         if 'DisplayName' in rd[k]:
-            raw_result.append(item['DisplayName'])
+            display_name = item['DisplayName']
+            
+        display_version = ''
+        if 'DisplayVersion' in rd[k]:
+            display_version = item['DisplayVersion']
+            
+        raw_result.append((display_name, display_version))
     
     updates_result = raw_result
     if not include_updates:
-      regexp = re.compile('KB\d+', re.IGNORECASE)
-      updates_result = [n for n in raw_result if not regexp.search(n)]
+        regexp = re.compile('KB\d+')
+        updates_result = [(name, version) for name, version in
+                          raw_result if not regexp.search(name)]
       
-    regexp = re.compile(filter)
-    result = [n for n in updates_result if regexp.search(n)]
+    regexp = re.compile(filter, re.IGNORECASE)
+    result = [(name, version) for name, version in updates_result if
+              regexp.search(name)]
     return result
 
 
@@ -40,6 +51,6 @@ if __name__ == '__main__':
                       help='Select applications of interest (default=all).')
     (options, args) = parser.parse_args()
     
-    names = query_uninstallable(filter=options.text)
-    names.sort()
-    print names
+    installed = query_uninstallable(filter=options.text)
+    installed.sort()
+    pprint.pprint(installed)
