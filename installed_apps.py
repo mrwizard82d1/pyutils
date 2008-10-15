@@ -1,11 +1,10 @@
 #! python
 
 
-"""Python script to list all installed software."""
+"""Models installed applications."""
 
 
-from optparse import OptionParser
-import pprint
+import os
 import re
 
 import win32con
@@ -13,44 +12,52 @@ import win32con
 import reg_dict
 
 
-def query_uninstallable(filter='.*', include_updates=False):
-    # Create a registry dictionary to query.
-    keypath = 'Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'
-    rd = reg_dict.RegistryDict(keypath=keypath,
-                               flags=win32con.KEY_ALL_ACCESS)
-    raw_result = []
-    for k in rd.keys():
-        item = rd[k]
+NAME_KEY='DisplayName'
+VERSION_KEY='DisplayVersion'
+UNINSTALL_KEY='UninstallString'
+
+
+class InstalledApps(object):
+    """Models the installed applications."""
+    
+    def find(filter='.*', what_info=[VERSION_KEY],
+             include_updates=False):
+        """o.find(filter, what_info, include_updates) -> seq
+
+        Finds all installed applications matching filter.
+
+        filter - Regular expression to match (default='.*').
+        what_info - Information to return (default='DisplayVersion').
+        Note that the list always includes 'DisplayName' if available. 
+        include_updates - Flag if result includes Windows updates
+        (default=False)."""
         
-        display_name = ''
-        if 'DisplayName' in rd[k]:
-            display_name = item['DisplayName']
-            
-        display_version = ''
-        if 'DisplayVersion' in rd[k]:
-            display_version = item['DisplayVersion']
-            
-        raw_result.append((display_name, display_version))
-    
-    updates_result = raw_result
-    if not include_updates:
-        regexp = re.compile('KB\d+')
-        updates_result = [(name, version) for name, version in
-                          raw_result if not regexp.search(name)]
-      
-    regexp = re.compile(filter, re.IGNORECASE)
-    result = [(name, version) for name, version in updates_result if
-              regexp.search(name)]
-    return result
+        # Create a registry dictionary to query.
+        keypath = os.path.join('Software', 'Microsoft', 'Windows',
+                               'CurrentVersion', 'Uninstall')
+        rd = reg_dict.RegistryDict(keypath=keypath,
+                                   flags=win32con.KEY_ALL_ACCESS)
 
+        what_info.append[NAME_KEY]
+        raw_result = []
+        for k in rd.keys():
+            item = rd[k]
 
-if __name__ == '__main__':
-    parser = OptionParser()
-    parser.add_option('-t', '--text',
-                      default='.*',
-                      help='Select applications of interest (default=all).')
-    (options, args) = parser.parse_args()
+            info = {}
+            for key in what_info:
+                if key in rd[k]:
+                    info[key] = item[key]
+
+            raw_result.append(info)
+
+        updates_result = raw_result
+        if not include_updates :
+            regexp = re.compile('KB\d+')
+            update_result = [info for info in raw_result if
+                             not regexp.search(info[NAME_KEY])]
+
+        regexp = re.compile(filter, re.IGNORECASE)
+        result = [info for info in updates_result if
+                  regexp.search(info[NAME_KEY])]
+        return result
     
-    installed = query_uninstallable(filter=options.text)
-    installed.sort()
-    pprint.pprint(installed)
