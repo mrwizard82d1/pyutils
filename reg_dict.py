@@ -2,7 +2,7 @@
 # Corrections and additions have been made
 
 """Slightly magical Win32api Registry -> Dictionary-like-object wrapper"""
-import win32api, win32con, cPickle
+import win32api, win32con
 
 class RegistryDict(object):
     def __init__(self, keyhandle = win32con.HKEY_LOCAL_MACHINE, keypath = [], flags = None):
@@ -11,10 +11,11 @@ class RegistryDict(object):
         self.open(keyhandle, keypath, flags)
 
     @staticmethod
-    def massageIncomingRegistryValue((obj, objtype)):
+    def massageIncomingRegistryValue(obj_objtype):
+        obj, objtype = obj_objtype
         if objtype == win32con.REG_BINARY and obj[:8]=='PyPickle':
             obj = obj[8:]
-            return cPickle.loads(obj)
+            return pickle.loads(obj)
         elif objtype == win32con.REG_NONE:
             return None
         elif objtype in (win32con.REG_SZ, win32con.REG_EXPAND_SZ,
@@ -196,7 +197,7 @@ class RegistryDict(object):
             valuetype = win32con.REG_DWORD
         else:
             valuetype = win32con.REG_BINARY
-            value = 'PyPickle' + cPickle.dumps(value)
+            value = 'PyPickle' + pickle.dumps(value)
         win32api.RegSetValueEx(self.keyhandle, item, 0, valuetype, value)
   
     def open(self, keyhandle, keypath, flags = None):

@@ -28,7 +28,8 @@ def uninstall_apps(ia, options):
                            what_info=[VERSION_KEY, UNINSTALL_KEY])
     for uninstall_info in to_uninstall:
         name = uninstall_info[NAME_KEY]
-        version = uninstall_info[VERSION_KEY]
+        version = uninstall_info[VERSION_KEY] if \
+                  VERSION_KEY in uninstall_info else "N/A"
         uninstall_cmd = uninstall_info[UNINSTALL_KEY]
         prompt = 'Uninstall {0} (version {1}) (y/n)? '.format(name, version)
         answer = raw_input(prompt)
