@@ -14,7 +14,7 @@ def find_grep(start, file_name_pattern, content_pattern):
         matching_files = fnmatch.filter(files, file_name_pattern)
         for matching_file in matching_files:
             filename_of_interest = os.path.join(root, matching_file)
-            contents = file(filename_of_interest).read()
+            contents = open(filename_of_interest).read()
             if content_matcher.search(contents):
                 filenames_of_interest.append(filename_of_interest)
     return filenames_of_interest
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     if options.display_cmd_line:
         import sys
-        print 'sys.argv=%s' % sys.argv
+        print('sys.argv={0}'.format(sys.argv))
 
     if len(args) == 0:
         start_dirname = '.'
@@ -53,6 +53,6 @@ if __name__ == '__main__':
                                    options.text_pattern)
     matching_filenames.sort()
     for matching_filename in matching_filenames:
-        print matching_filename
+        print(matching_filename)
 
     

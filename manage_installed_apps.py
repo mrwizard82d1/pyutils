@@ -17,10 +17,38 @@ from installed_apps import UNINSTALL_KEY
 from installed_apps import VERSION_KEY
 
 
+class InstalledApp(object):
+    """Models an installed application."""
+
+    def __init__(self, name, version=None):
+        """Initialize an instance with name and version."""
+        self.name = name
+        self.version = version
+
+    def __lt__(self, other):
+        """Am I less than other?"""
+        if self.name < other.name:
+            return True
+        elif self.name > other.name:
+            return False
+        else:
+            result = (self.version < other.version)
+        
+    def __str__(self):
+        """Represent myself as a string."""
+        return str((self.name, self.version))
+
+
 def list_apps(ia, options):
-    installed = ia.find(filter=options.text)
+    about_installed = ia.find(filter=options.text)
+    installed = [InstalledApp(i['DisplayName'], i['DisplayVersion']) for
+                 i in about_installed]
     installed.sort()
-    pprint.pprint(installed)
+    format_str = '{0:50.50}{1:25.25}'
+    print(format_str.format('Name', 'Version'))
+    print(format_str.format('=' * 48, '=' * 25))
+    for i in installed:
+        print(format_str.format(i.name, i.version))
 
 
 def uninstall_apps(ia, options):
