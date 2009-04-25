@@ -41,7 +41,8 @@ class InstalledApp(object):
 
 def list_apps(ia, options):
     about_installed = ia.find(filter=options.text)
-    installed = [InstalledApp(i['DisplayName'], i['DisplayVersion']) for
+    installed = [InstalledApp(i['DisplayName'],
+                              i.get('DisplayVersion')) for
                  i in about_installed]
     installed.sort()
     format_str = '{0:50.50}{1:25.25}'
