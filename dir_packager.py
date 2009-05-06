@@ -79,10 +79,6 @@ class Zipper(Packager):
                 for filename in files:
                     pathname = os.path.join(root, filename)
                     zipFile.write(pathname)
-                # zip all the directories...
-                for dirname in dirs:
-                    pathname = os.path.join(root, dirname)
-                    self.zip_tree(zipFile, pathname)
             # else the root directory is empty
             else:
                 # store the empty directory

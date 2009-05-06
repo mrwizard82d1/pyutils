@@ -81,16 +81,14 @@ class ZipPackageTest(unittest.TestCase):
         self.assertTrue(os.path.isdir(self._empty_dirname))
         self.assertTrue(len(os.listdir(self._empty_dirname)) == 0)
 
-##    def testZipEmptySubDirAmongFilesSkipsDir(self):
-##        """Verify that zipper skips empty directory but zips files."""
-##        zipper = dir_packager.Zipper(self._emptySubdirTree[0])
-##        zipper.execute()
-##        shutil.rmtree(self._emptySubdirTree[0])
-##        unzipper = dir_packager.\
-##                   Unzipper(zipFilename='{0}.zip'.
-##                            format(self._emptySubdirTree[0]))
-##        unzipper.execute()
-##        self.verifyTree(self._emptySubdirTree, self._emptySubdirTree[0])
+    def testZipEmptySubDirAmongFilesSkipsDir(self):
+        """Verify that zipper skips empty directory but zips files."""
+        zipper = dir_packager.Zipper(self._emptySubdirTree[0])
+        zipper.execute()
+        shutil.rmtree(self._emptySubdirTree[0])
+        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
+        unzipper.execute()
+        self.verifyTree(self._emptySubdirTree)
 
     def tearDown(self):
         """Tear down the test fixture."""
@@ -129,8 +127,16 @@ class ZipPackageTest(unittest.TestCase):
         f = open(filename, 'w')
         f.close()
 
-
-
+    def verifyTree(self, tree, root=''):
+        """Verify that the on-disk tree is the same as the tree."""
+        if len(tree) == 0:
+            return True
+        elif not os.path.exists(tree[0]):
+            return False
+        else:
+            self.verifyTree(tree[1:-1], tree[0])
+            
+            
 def suite():
     """Returns the suite of unit tests in this module."""
     result = None
