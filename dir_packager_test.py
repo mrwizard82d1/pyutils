@@ -4,9 +4,11 @@
 """Defines and runs the unit tests for the dir_packager module."""
 
 
+from datetime import datetime
 import os
-import unittest
 import shutil
+import time
+import unittest
 
 import dir_packager
 
@@ -64,6 +66,7 @@ class ZipPackageTest(unittest.TestCase):
                          'porcus' : 'rutrum risus. Nullam consectetur',
                          'elephanti' : 'Nam pretium justo nec magna',
                          'ultimo' : 'odio'}
+        self._contentTimes = {'scirit' : datetime(1995, 12, 5, 8, 56, 3)}
         self._empty_dirname = 'nulla'
         self._empty_zipname = '{0}.zip'.format(self._empty_dirname)
         self._emptyTree = {'necessaire' : ['aqua', 'voluisti',
@@ -78,11 +81,17 @@ class ZipPackageTest(unittest.TestCase):
         os.mkdir(self._empty_dirname)
         self.makeTree(self._emptyTree, self._emptyTreeRoot)
         self.makeTree(self._contentTree, self._contentTreeRoot,
-                      content=self._content)
+                      content=self._content, times=self._contentTimes)
 
     def testUnzipHasCorrectTimeStamps(self):
         """Verify that unzipping a subdirectory restores time stamps."""
-        self.fail()
+        zipper = dir_packager.Zipper(self._contentTreeRoot)
+        zipper.execute()
+        shutil.rmtree(self._contentTreeRoot)
+        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
+        unzipper.execute()
+        self.verifyTree(self._contentTree, self._contentTreeRoot,
+                        times=self._contentTimes)
 
     def testZipEmptyDir(self):
         """Verify zipping an empty directory."""
@@ -103,7 +112,7 @@ class ZipPackageTest(unittest.TestCase):
         shutil.rmtree(self._emptyTreeRoot)
         unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
         unzipper.execute()
-        self.verifyTree(self._emptyTree)
+        self.verifyTree(self._emptyTree, self._emptyTreeRoot)
 
     def testZipSubdirZipsFileContent(self):
         """Verify that zipping a subdirectory zips file content."""
@@ -112,7 +121,8 @@ class ZipPackageTest(unittest.TestCase):
         shutil.rmtree(self._contentTreeRoot)
         unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
         unzipper.execute()
-        self.verifyTree(self._contentTree)
+        self.verifyTree(self._contentTree, self._contentTreeRoot,
+                        content=self._content)
 
     def tearDown(self):
         """Tear down the test fixture."""
@@ -137,10 +147,17 @@ class ZipPackageTest(unittest.TestCase):
         if (os.path.isdir(self._emptyTreeRoot)):
             shutil.rmtree(self._emptyTreeRoot)
         
-    def makeTree(self, tree, root='.', content={}):
+    def makeFile(self, filename, content):
+        """Creates an empty file named filename."""
+        f = open(filename, 'w')
+        f.write(content)
+        f.close()
+
+    def makeTree(self, tree, root='.', content={}, times={}):
         """Creates a directory tree."""
         # make the root
         os.mkdir(root)
+        self.touchFile(root, times)
         # create the children of the root
         children = tree[os.path.basename(root)]
         for child in children:
@@ -150,23 +167,40 @@ class ZipPackageTest(unittest.TestCase):
             # otherwise child is a file
             else:
                 pathname = os.path.join(root, child)
-                self.touchFile(pathname, content.get(child, ''))
+                self.makeFile(pathname, content.get(child, ''))
+                self.touchFile(pathname, times)
 
-    def touchFile(self, filename, content):
-        """Creates an empty file named filename."""
-        f = open(filename, 'w')
-        f.write(content)
-        f.close()
+    def touchFile(self, pathname, times):
+        """Set the access and modified times of pathname."""
+        try:
+            timeStamp = times[os.path.basename(pathname)]
+            timeSeconds = time.mktime(datetime.timetuple(timeStamp))
+            os.utime(pathname, (timeSeconds, timeSeconds))
+        except KeyError:
+            pass
 
-    def verifyTree(self, tree, root='', content={}):
+    def verifyContent(self, pathname, content):
+        """Verify that the on-disk pathname has the correct content."""
+        try:
+            expected = content[os.path.basename(pathname)]
+            actual = open(pathname, 'r').read()
+            return (expected == actual)
+        except KeyError:
+            return True
+
+    def verifyTree(self, tree, root='', content={}, times={}):
         """Verify that the on-disk tree is the same as the tree."""
-        if not os.path.exists(os.path.basename(root)):
+        if not os.path.exists(root):
+            return False
+        if not self.verifyTime(root, times):
             return False
 
         for child in tree[os.path.basename(root)]:
             pathname = os.path.join(root, child)
+            if not self.verifyTime(pathname, times):
+                return False
             if os.path.isfile(pathname):
-                if not self.verifyContent(pathname, content[child]):
+                if not self.verifyContent(pathname, content):
                     return False
             else:
                 return self.verifyTree(tree,
@@ -174,6 +208,15 @@ class ZipPackageTest(unittest.TestCase):
                                        content)
 
         return True
+
+    def verifyTime(self, pathname, times):
+        """Verify that the on-disk pathname has the correct time."""
+        try:
+            timeStamp = times[os.path.basename(pathname)]
+            timeSeconds = time.mktime(datetime.timetuple(timeStamp))
+            return (timeSeconds == os.stat(pathname).st_mtime)
+        except KeyError:
+            return True
     
             
 def suite():
