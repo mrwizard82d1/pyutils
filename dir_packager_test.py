@@ -56,18 +56,21 @@ class ZipPackageTest(unittest.TestCase):
         # initialize members
         self._empty_dirname = 'nulla'
         self._empty_zipname = '{0}.zip'.format(self._empty_dirname)
-        self._emptySubdirTree = ('necessaire',
-                                 (('aqua',),
-                                  ('voluisti',),
-                                  ('reginae', tuple()),
-                                  ('invetavi',)))
+        self._emptySubdirTree = {'necessaire' : ['aqua', 'voluisti',
+                                                 'reginae', 'invetavi'],
+                                 'reginiae' : []}
+        self._emptySubdirTreeRoot = 'necessaire'
 
         # clean old fixtures
         self._cleanFixtures()
         
         # set up new fixtures
         os.mkdir(self._empty_dirname)
-        self.makeTree(self._emptySubdirTree)
+        self.makeTree(self._emptySubdirTree, self._emptySubdirTreeRoot)
+
+    def testUnzipHasCorrectTimeStamps(self):
+        """Verify that unzipping a subdirectory restores time stamps."""
+        self.fail()
 
     def testZipEmptyDir(self):
         """Verify zipping an empty directory."""
@@ -83,12 +86,16 @@ class ZipPackageTest(unittest.TestCase):
 
     def testZipEmptySubDirAmongFilesSkipsDir(self):
         """Verify that zipper skips empty directory but zips files."""
-        zipper = dir_packager.Zipper(self._emptySubdirTree[0])
+        zipper = dir_packager.Zipper(self._emptySubdirTreeRoot)
         zipper.execute()
-        shutil.rmtree(self._emptySubdirTree[0])
+        shutil.rmtree(self._emptySubdirTreeRoot)
         unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
         unzipper.execute()
         self.verifyTree(self._emptySubdirTree)
+
+    def testZipSubdirZipsFileContent(self):
+        """Verify that zipping a subdirectory zips file content."""
+        self.fail()
 
     def tearDown(self):
         """Tear down the test fixture."""
@@ -100,27 +107,26 @@ class ZipPackageTest(unittest.TestCase):
             os.rmdir(self._empty_dirname)
         if (os.path.isfile(self._empty_zipname)):
             os.remove(self._empty_zipname)
-        emptySubdirTreeZipName = '{0}.zip'.format(self._emptySubdirTree[0])
+        emptySubdirTreeZipName = '{0}.zip'.format(self._emptySubdirTreeRoot)
         if (os.path.isfile(emptySubdirTreeZipName)):
             os.remove(emptySubdirTreeZipName)
-        if (os.path.isdir(self._emptySubdirTree[0])):
-            shutil.rmtree(self._emptySubdirTree[0])
+        if (os.path.isdir(self._emptySubdirTreeRoot)):
+            shutil.rmtree(self._emptySubdirTreeRoot)
         
     def makeTree(self, tree, root='.'):
         """Creates a directory tree."""
-        # if root node has children
-        if len(tree) > 1:
-            # create a directory...
-            root = os.path.join(root, tree[0])
-            os.mkdir(root)
-            # ...and fill it
-            for subtree in tree[1]:
-                self.makeTree(subtree, root)
-        # otherwise no children
-        else:
-            # so just create a file
-            pathname = os.path.join(root, tree[0])
-            self.touchFile(pathname)
+        # make the root
+        os.mkdir(os.path.basename(root))
+        # create the children of the root
+        children = tree[root]
+        for child in children:
+            # if child is a directory
+            if child in tree:
+                self.makeTree(tree, os.path.join(root, child))
+            # otherwise child is a file
+            else:
+                pathname = os.path.join(root, child)
+                self.touchFile(pathname)
 
     def touchFile(self, filename):
         """Creates an empty file named filename."""
@@ -129,13 +135,16 @@ class ZipPackageTest(unittest.TestCase):
 
     def verifyTree(self, tree, root=''):
         """Verify that the on-disk tree is the same as the tree."""
-        if len(tree) == 0:
-            return True
-        elif not os.path.exists(tree[0]):
+        if not os.path.exists(os.path.basename(root)):
             return False
-        else:
-            self.verifyTree(tree[1:-1], tree[0])
-            
+        for child in tree[root]:
+            if child not in tree:
+                if not os.path.exists(os.path.join(root, child)):
+                    return False
+            else:
+                self.verifyTree(tree, os.path.join(root, child))
+        return True
+    
             
 def suite():
     """Returns the suite of unit tests in this module."""
