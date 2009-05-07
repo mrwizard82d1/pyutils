@@ -54,19 +54,31 @@ class ZipPackageTest(unittest.TestCase):
         """Set up the test fixture."""
 
         # initialize members
+        self._contentTree = {'la_station' : ['scirit', 'possible'],
+                             'possible' : ['publici', 'existit'],
+                             'publici' : ['stipat', 'porcus',
+                                          'elephanti', 'ultimo']}
+        self._contentTreeRoot = 'la_station'
+        self._content = {'scirit' : 'tellus. Phasellus posuere,',
+                         'existit' : 'sit',
+                         'porcus' : 'rutrum risus. Nullam consectetur',
+                         'elephanti' : 'Nam pretium justo nec magna',
+                         'ultimo' : 'odio'}
         self._empty_dirname = 'nulla'
         self._empty_zipname = '{0}.zip'.format(self._empty_dirname)
-        self._emptySubdirTree = {'necessaire' : ['aqua', 'voluisti',
-                                                 'reginae', 'invetavi'],
-                                 'reginiae' : []}
-        self._emptySubdirTreeRoot = 'necessaire'
+        self._emptyTree = {'necessaire' : ['aqua', 'voluisti',
+                                           'reginae', 'invetavi'],
+                           'reginiae' : []}
+        self._emptyTreeRoot = 'necessaire'
 
         # clean old fixtures
         self._cleanFixtures()
         
         # set up new fixtures
         os.mkdir(self._empty_dirname)
-        self.makeTree(self._emptySubdirTree, self._emptySubdirTreeRoot)
+        self.makeTree(self._emptyTree, self._emptyTreeRoot)
+        self.makeTree(self._contentTree, self._contentTreeRoot,
+                      content=self._content)
 
     def testUnzipHasCorrectTimeStamps(self):
         """Verify that unzipping a subdirectory restores time stamps."""
@@ -86,16 +98,21 @@ class ZipPackageTest(unittest.TestCase):
 
     def testZipEmptySubDirAmongFilesSkipsDir(self):
         """Verify that zipper skips empty directory but zips files."""
-        zipper = dir_packager.Zipper(self._emptySubdirTreeRoot)
+        zipper = dir_packager.Zipper(self._emptyTreeRoot)
         zipper.execute()
-        shutil.rmtree(self._emptySubdirTreeRoot)
+        shutil.rmtree(self._emptyTreeRoot)
         unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
         unzipper.execute()
-        self.verifyTree(self._emptySubdirTree)
+        self.verifyTree(self._emptyTree)
 
     def testZipSubdirZipsFileContent(self):
         """Verify that zipping a subdirectory zips file content."""
-        self.fail()
+        zipper = dir_packager.Zipper(self._contentTreeRoot)
+        zipper.execute()
+        shutil.rmtree(self._contentTreeRoot)
+        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
+        unzipper.execute()
+        self.verifyTree(self._contentTree)
 
     def tearDown(self):
         """Tear down the test fixture."""
@@ -107,42 +124,55 @@ class ZipPackageTest(unittest.TestCase):
             os.rmdir(self._empty_dirname)
         if (os.path.isfile(self._empty_zipname)):
             os.remove(self._empty_zipname)
-        emptySubdirTreeZipName = '{0}.zip'.format(self._emptySubdirTreeRoot)
-        if (os.path.isfile(emptySubdirTreeZipName)):
-            os.remove(emptySubdirTreeZipName)
-        if (os.path.isdir(self._emptySubdirTreeRoot)):
-            shutil.rmtree(self._emptySubdirTreeRoot)
+
+        contentTreeZipName = '{0}.zip'.format(self._contentTreeRoot)
+        if (os.path.isfile(contentTreeZipName)):
+            os.remove(contentTreeZipName)
+        if (os.path.isdir(self._contentTreeRoot)):
+            shutil.rmtree(self._contentTreeRoot)
+
+        emptyTreeZipName = '{0}.zip'.format(self._emptyTreeRoot)
+        if (os.path.isfile(emptyTreeZipName)):
+            os.remove(emptyTreeZipName)
+        if (os.path.isdir(self._emptyTreeRoot)):
+            shutil.rmtree(self._emptyTreeRoot)
         
-    def makeTree(self, tree, root='.'):
+    def makeTree(self, tree, root='.', content={}):
         """Creates a directory tree."""
         # make the root
-        os.mkdir(os.path.basename(root))
+        os.mkdir(root)
         # create the children of the root
-        children = tree[root]
+        children = tree[os.path.basename(root)]
         for child in children:
             # if child is a directory
             if child in tree:
-                self.makeTree(tree, os.path.join(root, child))
+                self.makeTree(tree, os.path.join(root, child), content)
             # otherwise child is a file
             else:
                 pathname = os.path.join(root, child)
-                self.touchFile(pathname)
+                self.touchFile(pathname, content.get(child, ''))
 
-    def touchFile(self, filename):
+    def touchFile(self, filename, content):
         """Creates an empty file named filename."""
         f = open(filename, 'w')
+        f.write(content)
         f.close()
 
-    def verifyTree(self, tree, root=''):
+    def verifyTree(self, tree, root='', content={}):
         """Verify that the on-disk tree is the same as the tree."""
         if not os.path.exists(os.path.basename(root)):
             return False
-        for child in tree[root]:
-            if child not in tree:
-                if not os.path.exists(os.path.join(root, child)):
+
+        for child in tree[os.path.basename(root)]:
+            pathname = os.path.join(root, child)
+            if os.path.isfile(pathname):
+                if not self.verifyContent(pathname, content[child]):
                     return False
             else:
-                self.verifyTree(tree, os.path.join(root, child))
+                return self.verifyTree(tree,
+                                       os.path.join(root, child),
+                                       content)
+
         return True
     
             
