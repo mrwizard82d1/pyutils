@@ -10,11 +10,16 @@ from mapped_drives import MappedDrives
 
 
 def list_drives(md, options):
-    for drive, share in md.drives():
-        print('{0} -> {1}'.format(drive, share))
+    for mapped_drive in md.drives():
+        print('{0} -> {1}'.format(mapped_drive['local'], 
+                                  mapped_drive['remote']))
 
 def add_drive(md, options):
-    md.add(options.drive, options.share)
+    options.__dict__['local'] = options.__dict__['drive']
+    options.__dict__['remote'] = options.__dict__['share']
+    del options.__dict__['drive']
+    del options.__dict__['share']
+    md.add(**options.__dict__)
 
 def del_drive(md, options):
     md.delete(options.drive)
@@ -50,6 +55,12 @@ if __name__ == '__main__':
                       default=r'\\jonesl-copiosae\c$',
                       help=('Share to be mapped' +
                             ' (default=\\jonesl-copiosae\c$).'))
+    parser.add_option('-p', '--password',
+                      help='Password for share.')
+    parser.add_option('-u', '--username',
+                      help='Resource username.')
+    parser.add_option('-o', '--domainname',
+                      help='Resource domainname.')
 
     (options, args) = parser.parse_args()
     if len(args) == 0:
