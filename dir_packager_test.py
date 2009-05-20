@@ -49,6 +49,11 @@ class DirPackagerNameTest(unittest.TestCase):
         self.assertEqual('/', zipper.dirname)
         
         
+class TgzPackageTest(unittest.TestCase):
+    """Defines the unit tests for the .tgz file packages."""
+    pass
+
+
 class ZipPackageTest(unittest.TestCase):
     """Defines unit tests for the .zip file packages."""
 

@@ -18,13 +18,14 @@ class Packager(object):
         If dirname is not supplied, I package the current working
         directory. If pkgFilename is not supplied, I construct one
         from dirname. If dirname is '' (the default), pkgFilename is
-        the current working directory name with .zip
-        appended. Otherwise, it is the basename of the specified
-        directory with .zip appended.
+        the current working directory name with the default extension
+        for the concrete implementor appended. Otherwise, it is the
+        basename of the specified directory with default extension
+        appended. 
         """
         if not dirname and not pkgFilename:
             self.dirname = ''
-            self.pkgFilename = 'dir_package.zip'
+            self.pkgFilename = 'dir_package' + self.archive_ext()
         elif dirname and not pkgFilename:
             self.dirname = dirname
             head, tail = os.path.split(self.dirname)
@@ -40,12 +41,30 @@ class Packager(object):
             self.dirname = dirname
             self.pkgFilename = pkgFilename
 
+    def archive_ext(self):
+        """Returns the extension for the concrete archiver."""
+        raise NotImplementedError('{0}.archive_ext() not implemented.'.
+                                  format(self.__class__.__name__))
+        
     def execute(self):
+        """Execute the archive operation."""
         raise NotImplementedError('{0}.execute() not implemented.'.
                                   format(self.__class__.__name__))
 
 
-class Zipper(Packager):
+class ZipBase(Packager):
+    """Provides common services for Zipper and Unzipper."""
+
+    def archive_ext(self):
+        """Returns the extension for the concrete archiver."""
+        return '.zip'
+        
+    def execute(self):
+        """Execute the archive operation."""
+        raise NotImplementedError('{0}.execute() not implemented.'.
+                                  format(self.__class__.__name__))
+
+class Zipper(ZipBase):
     """Models a command to create a .zip file from a directory."""
 
     def __init__(self, dirname=None, zipFilename=None):
@@ -54,7 +73,8 @@ class Zipper(Packager):
 
     def execute(self):
         """Zip the directory into the zip filename."""
-        zipFile = zipfile.ZipFile(self.pkgFilename, 'w')
+        zipFile = zipfile.ZipFile(self.pkgFilename, 'w',
+                                  zipfile.ZIP_DEFLATED)
         try:
             self.zip_tree(zipFile, self.dirname)
         finally:
@@ -85,7 +105,7 @@ class Zipper(Packager):
                 self.storeEmptyDir(zipFile, root)
         
 
-class Unzipper(Packager):
+class Unzipper(ZipBase):
     """Models a command to extract all files from a .zip file."""
 
     def __init__(self, dirname=None, zipFilename=None):
