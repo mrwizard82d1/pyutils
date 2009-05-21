@@ -108,9 +108,10 @@ class Zipper(ZipBase):
 class Unzipper(ZipBase):
     """Models a command to extract all files from a .zip file."""
 
-    def __init__(self, dirname=None, zipFilename=None):
+    def __init__(self, dirname=None, zipFilename=None, parentDirname='.'):
         """Instance for recursively packaging dirname into zipFilename."""
         super(Unzipper, self).__init__(dirname, zipFilename)
+        self._parentDirname = parentDirname
 
     def execute(self):
         """Unzip the zip filename into directory."""
@@ -119,9 +120,10 @@ class Unzipper(ZipBase):
             infolist = zipFile.infolist()
             for member in infolist:
                 if not self.isZippedDir(member):
-                    zipFile.extract(member)
+                    zipFile.extract(member, self._parentDirname)
                 else:
-                    dirname = member.filename
+                    dirname = os.path.join(self._parentDirname,
+                                           member.filename)
                     os.mkdir(dirname)
         finally:
             zipFile.close()
