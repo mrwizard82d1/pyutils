@@ -49,7 +49,7 @@ class DirPackagerNameTest(unittest.TestCase):
         self.assertEqual('/', zipPackager.dirname)
         
         
-class PackageTest(unittest.TestCase):
+class PackageTest(object):
     """Defines the common set up and tear down for package tests."""
 
     def setUp(self):
@@ -135,6 +135,53 @@ class PackageTest(unittest.TestCase):
                 self.makeFile(pathname, content.get(child, ''))
                 self.touchFile(pathname, times)
 
+    def testUnzipIntoNewDirectoryHasCorrectTimes(self):
+        """Unzipping a package into a new directory has correct times."""
+        zipPackager = self.toTest(self._contentTreeRoot)
+        zipPackager.archive()
+        zipPackager.extract(parentDirname=self._newDirname)
+        self.assertTrue(os.path.isdir(self._newDirname))
+        self.verifyTree(self._contentTree, self._contentTreeRoot,
+                        content=self._content,
+                        times=self._contentTimes)
+
+    def testUnzipHasCorrectTimeStamps(self):
+        """Verify that unzipping a subdirectory restores time stamps."""
+        zipPackager = self.toTest(self._contentTreeRoot)
+        zipPackager.archive()
+        shutil.rmtree(self._contentTreeRoot)
+        zipPackager.extract()
+        self.verifyTree(self._contentTree, self._contentTreeRoot,
+                        times=self._contentTimes)
+
+    def testZipEmptyDir(self):
+        """Verify zipping an empty directory."""
+        zipPackager = self.toTest(self._empty_dirname)
+        zipPackager.archive()
+        self.assertTrue(os.path.isfile(zipPackager.pkgFilename))
+        self.assertTrue(os.stat(zipPackager.pkgFilename).st_size > 0)
+        os.rmdir(self._empty_dirname)
+        zipPackager.extract()
+        self.assertTrue(os.path.isdir(self._empty_dirname))
+        self.assertTrue(len(os.listdir(self._empty_dirname)) == 0)
+
+    def testZipEmptySubDirAmongFilesSkipsDir(self):
+        """Verify that zipPackager skips empty directory but zips files."""
+        zipPackager = self.toTest(self._emptyTreeRoot)
+        zipPackager.archive()
+        shutil.rmtree(self._emptyTreeRoot)
+        zipPackager.extract()
+        self.verifyTree(self._emptyTree, self._emptyTreeRoot)
+
+    def testZipSubdirZipsFileContent(self):
+        """Verify that zipping a subdirectory zips file content."""
+        zipPackager = self.toTest(self._contentTreeRoot)
+        zipPackager.archive()
+        shutil.rmtree(self._contentTreeRoot)
+        zipPackager.extract()
+        self.verifyTree(self._contentTree, self._contentTreeRoot,
+                        content=self._content)
+
     def touchFile(self, pathname, times):
         """Set the access and modified times of pathname."""
         try:
@@ -189,56 +236,13 @@ class TgzPackageTest(unittest.TestCase):
     pass
 
 
-class ZipPackageTest(PackageTest):
+class ZipPackageTest(PackageTest, unittest.TestCase):
     """Defines unit tests for the .zip file packages."""
 
-    def testUnzipIntoNewDirectoryHasCorrectTimes(self):
-        """Unzipping a package into a new directory has correct times."""
-        zipPackager = dir_packager.ZipPackager(self._contentTreeRoot)
-        zipPackager.archive()
-        zipPackager.extract(parentDirname=self._newDirname)
-        self.assertTrue(os.path.isdir(self._newDirname))
-        self.verifyTree(self._contentTree, self._contentTreeRoot,
-                        content=self._content,
-                        times=self._contentTimes)
-
-    def testUnzipHasCorrectTimeStamps(self):
-        """Verify that unzipping a subdirectory restores time stamps."""
-        zipPackager = dir_packager.ZipPackager(self._contentTreeRoot)
-        zipPackager.archive()
-        shutil.rmtree(self._contentTreeRoot)
-        zipPackager.extract()
-        self.verifyTree(self._contentTree, self._contentTreeRoot,
-                        times=self._contentTimes)
-
-    def testZipEmptyDir(self):
-        """Verify zipping an empty directory."""
-        zipPackager = dir_packager.ZipPackager(self._empty_dirname)
-        zipPackager.archive()
-        self.assertTrue(os.path.isfile(zipPackager.pkgFilename))
-        self.assertTrue(os.stat(zipPackager.pkgFilename).st_size > 0)
-        os.rmdir(self._empty_dirname)
-        zipPackager.extract()
-        self.assertTrue(os.path.isdir(self._empty_dirname))
-        self.assertTrue(len(os.listdir(self._empty_dirname)) == 0)
-
-    def testZipEmptySubDirAmongFilesSkipsDir(self):
-        """Verify that zipPackager skips empty directory but zips files."""
-        zipPackager = dir_packager.ZipPackager(self._emptyTreeRoot)
-        zipPackager.archive()
-        shutil.rmtree(self._emptyTreeRoot)
-        zipPackager.extract()
-        self.verifyTree(self._emptyTree, self._emptyTreeRoot)
-
-    def testZipSubdirZipsFileContent(self):
-        """Verify that zipping a subdirectory zips file content."""
-        zipPackager = dir_packager.ZipPackager(self._contentTreeRoot)
-        zipPackager.archive()
-        shutil.rmtree(self._contentTreeRoot)
-        zipPackager.extract()
-        self.verifyTree(self._contentTree, self._contentTreeRoot,
-                        content=self._content)
-
+    def toTest(self, dirname=None, zipFilename=None):
+        """Return the instance to test."""
+        return dir_packager.ZipPackager(dirname, zipFilename)
+    
             
 def suite():
     """Returns the suite of unit tests in this module."""

@@ -52,19 +52,7 @@ class Packager(object):
                                   format(self.__class__.__name__))
 
 
-class ZipBase(Packager):
-    """Provides common services for ZipPackager and Unzipper."""
-
-    def archive_ext(self):
-        """Returns the extension for the concrete archiver."""
-        return '.zip'
-        
-    def execute(self):
-        """Execute the archive operation."""
-        raise NotImplementedError('{0}.execute() not implemented.'.
-                                  format(self.__class__.__name__))
-
-class ZipPackager(ZipBase):
+class ZipPackager(Packager):
     """Models a command to create a .zip file from a directory."""
 
     def __init__(self, dirname=None, zipFilename=None):
@@ -80,6 +68,10 @@ class ZipPackager(ZipBase):
         finally:
             zipFile.close()
 
+    def archive_ext(self):
+        """Returns the extension for the concrete archiver."""
+        return '.zip'
+        
     def extract(self, parentDirname='.'):
         """Unzip the zip filename into directory."""
         zipFile = zipfile.ZipFile(self.pkgFilename, 'r')
