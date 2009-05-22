@@ -6,10 +6,11 @@
 
 from datetime import datetime
 import os
+import tarfile
 import zipfile
 
 
-class Packager(object):
+class Archive(object):
     """Provides common services for all child classes."""
 
     def __init__(self, dirname=None, pkgFilename=None):
@@ -41,30 +42,32 @@ class Packager(object):
             self.dirname = dirname
             self.pkgFilename = pkgFilename
 
-    def archive_ext(self):
-        """Returns the extension for the concrete archiver."""
-        raise NotImplementedError('{0}.archive_ext() not implemented.'.
-                                  format(self.__class__.__name__))
-        
-    def execute(self):
-        """Execute the archive operation."""
-        raise NotImplementedError('{0}.execute() not implemented.'.
-                                  format(self.__class__.__name__))
 
-
-class TgzArchive(Packager):
+class TgzArchive(Archive):
     """Models an archive in the .tgz format."""
 
     def archive(self):
         """Archive my directory."""
-        pass
+        archive = tarfile.open(self.pkgFilename, 'w:gz')
+        try:
+            archive.add(self.dirname)
+        finally:
+            archive.close()
 
+    def archive_ext(self):
+        """Returns the extension for the concrete archiver."""
+        return '.tgz'
+        
     def extract(self, parentDirname='.'):
         """Extract the contents of my archive."""
-        pass
+        archive = tarfile.open(self.pkgFilename, 'r:*')
+        try:
+            archive.extractall(parentDirname)
+        finally:
+            archive.close()
 
 
-class ZipPackager(Packager):
+class ZipArchive(Archive):
     """Models an archive in the .zip format."""
 
     def __init__(self, dirname=None, zipFilename=None):

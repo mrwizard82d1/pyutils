@@ -13,43 +13,43 @@ import unittest
 import dir_packager
 
 
-class DirPackagerNameTest(unittest.TestCase):
+class DirArchiveNameTest(unittest.TestCase):
     """Defines the name unit tests for the .zip file packagers."""
 
     def testDirnameNoPkgName(self):
         """Verify package name correct when dirname supplied."""
-        zipPackager = dir_packager.ZipPackager('le_cheque')
-        self.assertEqual('le_cheque', zipPackager.dirname)
-        self.assertEqual('le_cheque.zip', zipPackager.pkgFilename)
+        toTest = dir_packager.ZipArchive('le_cheque')
+        self.assertEqual('le_cheque', toTest.dirname)
+        self.assertEqual('le_cheque.zip', toTest.pkgFilename)
 
     def testDirnamePkgName(self):
         """Verify the dirname and package name are both set correctly."""
-        zipPackager = dir_packager.ZipPackager('ripis', 'olerinis.zip', )
-        self.assertEqual('olerinis.zip', zipPackager.pkgFilename)
-        self.assertEqual('ripis', zipPackager.dirname)
+        toTest = dir_packager.TgzArchive('ripis', 'olerinis.tgz', )
+        self.assertEqual('olerinis.tgz', toTest.pkgFilename)
+        self.assertEqual('ripis', toTest.dirname)
 
     def testNoDirnameNoPkgName(self):
         """Verify the dirname and package name when none are supplied."""
-        zipPackager = dir_packager.ZipPackager()
-        self.assertEqual('', zipPackager.dirname)
-        self.assertEqual('dir_package.zip', zipPackager.pkgFilename)
+        toTest = dir_packager.TgzArchive()
+        self.assertEqual('', toTest.dirname)
+        self.assertEqual('dir_package.tgz', toTest.pkgFilename)
 
     def testNoDirnamePkgName(self):
         """Verify the dirname if only the package name if supplied."""
         filename = 'quaerunt.zip'
-        zipPackager = dir_packager.ZipPackager(zipFilename=filename)
+        toTest = dir_packager.ZipArchive(zipFilename=filename)
         self.assertEqual(os.path.splitext(filename)[0],
-                         zipPackager.dirname)
-        self.assertEqual(filename, zipPackager.pkgFilename)
+                         toTest.dirname)
+        self.assertEqual(filename, toTest.pkgFilename)
 
     def testRootOnlyNoPkgname(self):
         """Verify the package name is correct if the dir is root."""
-        zipPackager = dir_packager.ZipPackager('/')
-        self.assertEqual('dir_package.zip', zipPackager.pkgFilename)
-        self.assertEqual('/', zipPackager.dirname)
+        toTest = dir_packager.ZipArchive('/')
+        self.assertEqual('dir_package.zip', toTest.pkgFilename)
+        self.assertEqual('/', toTest.dirname)
         
         
-class PackageTest(object):
+class ArchiveTest(object):
     """Defines the common set up and tear down for package tests."""
 
     def setUp(self):
@@ -71,7 +71,7 @@ class PackageTest(object):
         self._empty_zipname = '{0}.zip'.format(self._empty_dirname)
         self._emptyTree = {'necessaire' : ['aqua', 'voluisti',
                                            'reginae', 'invetavi'],
-                           'reginiae' : []}
+                           'reginae' : []}
         self._emptyTreeRoot = 'necessaire'
 
         self._newDirname = 'venatibus'
@@ -112,6 +112,51 @@ class PackageTest(object):
         if os.path.exists(self._newDirname):
             shutil.rmtree(self._newDirname)
 
+    def assertContent(self, pathname, content):
+        """Verify that the on-disk pathname has the correct content."""
+        try:
+            expected = content[os.path.basename(pathname)]
+            actual = open(pathname, 'r').read()
+            self.assertEqual(expected, actual,
+                             'Cannot verify content of {0}.'.\
+                             format(pathname))
+        except KeyError:
+            pass
+
+    def assertTree(self, tree, root='', content={}, times={}):
+        """Verify that the on-disk tree is the same as the tree."""
+        self.assertTrue(os.path.exists(root),
+                        'Root {0} does not exist.'.format(root))
+        self.assertTime(root, times)
+
+        for child in tree[os.path.basename(root)]:
+            pathname = os.path.join(root, child)
+            self.assertTime(pathname, times)
+
+            if os.path.isfile(pathname):
+                self.assertContent(pathname, content)
+            else:
+                return self.assertTree(tree,
+                                       os.path.join(root, child),
+                                       content)
+
+    def assertTime(self, pathname, times):
+        """Verify that the on-disk pathname has the correct time."""
+        try:
+            expectTimeStamp = times[os.path.basename(pathname)]
+            expectTimeSeconds = time.mktime(datetime.\
+                                            timetuple(expectTimeStamp))
+            actualTimeSeconds = os.stat(pathname).st_mtime
+            actualTimeStamp = datetime.fromtimestamp(actualTimeSeconds)
+            msg = 'Restored time of {0}:\n  {1} != {2}.'.\
+                  format(pathname, expectTimeStamp, actualTimeStamp)
+            self.assertAlmostEqual(expectTimeSeconds,
+                                   actualTimeSeconds,
+                                   places=1,
+                                   msg=msg)
+        except KeyError:
+            pass
+    
     def makeFile(self, filename, content):
         """Creates an empty file named filename."""
         f = open(filename, 'w')
@@ -130,7 +175,7 @@ class PackageTest(object):
             if child in tree:
                 self.makeTree(tree, os.path.join(root, child), content)
             # otherwise child is a file
-            else:
+            else :
                 pathname = os.path.join(root, child)
                 self.makeFile(pathname, content.get(child, ''))
                 self.touchFile(pathname, times)
@@ -148,13 +193,13 @@ class PackageTest(object):
 
     def testArchiveEmptySubDirAmongFilesSkipsDir(self):
         """Archiving empty sub-directories among files skips empty
-        directory but includes files.""" 
+        directory but includes files."""
         archive = self.toTest(self._emptyTreeRoot)
         archive.archive()
         self.assertTrue(os.path.isfile(archive.pkgFilename))
         shutil.rmtree(self._emptyTreeRoot)
         archive.extract()
-        self.verifyTree(self._emptyTree, self._emptyTreeRoot)
+        self.assertTree(self._emptyTree, self._emptyTreeRoot)
 
     def testArchiveSubdirZipsFileContent(self):
         """Verify that archiving a subdirectory includes file content."""
@@ -163,7 +208,7 @@ class PackageTest(object):
         self.assertTrue(os.path.isfile(archive.pkgFilename))
         shutil.rmtree(self._contentTreeRoot)
         archive.extract()
-        self.verifyTree(self._contentTree, self._contentTreeRoot,
+        self.assertTree(self._contentTree, self._contentTreeRoot,
                         content=self._content)
 
     def testExtractIntoNewDirectoryHasCorrectTimes(self):
@@ -173,18 +218,18 @@ class PackageTest(object):
         self.assertTrue(os.path.isfile(archive.pkgFilename))
         archive.extract(parentDirname=self._newDirname)
         self.assertTrue(os.path.isdir(self._newDirname))
-        self.verifyTree(self._contentTree, self._contentTreeRoot,
+        self.assertTree(self._contentTree, self._contentTreeRoot,
                         content=self._content,
                         times=self._contentTimes)
 
     def testExtractHasCorrectTimeStamps(self):
-        """Archive and extract a subdirectory restors time stamps."""
+        """Archive and extract a subdirectory restores time stamps."""
         archive = self.toTest(self._contentTreeRoot)
         archive.archive()
         self.assertTrue(os.path.isfile(archive.pkgFilename))
         shutil.rmtree(self._contentTreeRoot)
         archive.extract()
-        self.verifyTree(self._contentTree, self._contentTreeRoot,
+        self.assertTree(self._contentTree, self._contentTreeRoot,
                         times=self._contentTimes)
 
     def touchFile(self, pathname, times):
@@ -196,47 +241,8 @@ class PackageTest(object):
         except KeyError:
             pass
 
-    def verifyContent(self, pathname, content):
-        """Verify that the on-disk pathname has the correct content."""
-        try:
-            expected = content[os.path.basename(pathname)]
-            actual = open(pathname, 'r').read()
-            return (expected == actual)
-        except KeyError:
-            return True
-
-    def verifyTree(self, tree, root='', content={}, times={}):
-        """Verify that the on-disk tree is the same as the tree."""
-        if not os.path.exists(root):
-            return False
-        if not self.verifyTime(root, times):
-            return False
-
-        for child in tree[os.path.basename(root)]:
-            pathname = os.path.join(root, child)
-            if not self.verifyTime(pathname, times):
-                return False
-            if os.path.isfile(pathname):
-                if not self.verifyContent(pathname, content):
-                    return False
-            else:
-                return self.verifyTree(tree,
-                                       os.path.join(root, child),
-                                       content)
-
-        return True
-
-    def verifyTime(self, pathname, times):
-        """Verify that the on-disk pathname has the correct time."""
-        try:
-            timeStamp = times[os.path.basename(pathname)]
-            timeSeconds = time.mktime(datetime.timetuple(timeStamp))
-            return (timeSeconds == os.stat(pathname).st_mtime)
-        except KeyError:
-            return True
     
-    
-class TgzArchiveTest(PackageTest, unittest.TestCase):
+class TgzArchiveTest(ArchiveTest, unittest.TestCase):
     """Defines the unit tests for the .tgz file packages."""
 
     def toTest(self, dirname=None, zipFilename=None):
@@ -244,12 +250,12 @@ class TgzArchiveTest(PackageTest, unittest.TestCase):
         return dir_packager.TgzArchive(dirname, zipFilename)
     
 
-class ZipPackageTest(PackageTest, unittest.TestCase):
+class ZipArchiveTest(ArchiveTest, unittest.TestCase):
     """Defines unit tests for the .zip file packages."""
 
     def toTest(self, dirname=None, zipFilename=None):
         """Return the instance to test."""
-        return dir_packager.ZipPackager(dirname, zipFilename)
+        return dir_packager.ZipArchive(dirname, zipFilename)
     
             
 def suite():
