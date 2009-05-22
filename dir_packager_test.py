@@ -18,35 +18,35 @@ class DirPackagerNameTest(unittest.TestCase):
 
     def testDirnameNoPkgName(self):
         """Verify package name correct when dirname supplied."""
-        unzipper = dir_packager.Unzipper('le_cheque')
-        self.assertEqual('le_cheque', unzipper.dirname)
-        self.assertEqual('le_cheque.zip', unzipper.pkgFilename)
+        zipPackager = dir_packager.ZipPackager('le_cheque')
+        self.assertEqual('le_cheque', zipPackager.dirname)
+        self.assertEqual('le_cheque.zip', zipPackager.pkgFilename)
 
     def testDirnamePkgName(self):
         """Verify the dirname and package name are both set correctly."""
-        unzipper = dir_packager.Unzipper('ripis', 'olerinis.zip', )
-        self.assertEqual('olerinis.zip', unzipper.pkgFilename)
-        self.assertEqual('ripis', unzipper.dirname)
+        zipPackager = dir_packager.ZipPackager('ripis', 'olerinis.zip', )
+        self.assertEqual('olerinis.zip', zipPackager.pkgFilename)
+        self.assertEqual('ripis', zipPackager.dirname)
 
     def testNoDirnameNoPkgName(self):
         """Verify the dirname and package name when none are supplied."""
-        zipper = dir_packager.Zipper()
-        self.assertEqual('', zipper.dirname)
-        self.assertEqual('dir_package.zip', zipper.pkgFilename)
+        zipPackager = dir_packager.ZipPackager()
+        self.assertEqual('', zipPackager.dirname)
+        self.assertEqual('dir_package.zip', zipPackager.pkgFilename)
 
     def testNoDirnamePkgName(self):
         """Verify the dirname if only the package name if supplied."""
         filename = 'quaerunt.zip'
-        unzipper = dir_packager.Unzipper(zipFilename=filename)
+        zipPackager = dir_packager.ZipPackager(zipFilename=filename)
         self.assertEqual(os.path.splitext(filename)[0],
-                         unzipper.dirname)
-        self.assertEqual(filename, unzipper.pkgFilename)
+                         zipPackager.dirname)
+        self.assertEqual(filename, zipPackager.pkgFilename)
 
     def testRootOnlyNoPkgname(self):
         """Verify the package name is correct if the dir is root."""
-        zipper = dir_packager.Zipper('/')
-        self.assertEqual('dir_package.zip', zipper.pkgFilename)
-        self.assertEqual('/', zipper.dirname)
+        zipPackager = dir_packager.ZipPackager('/')
+        self.assertEqual('dir_package.zip', zipPackager.pkgFilename)
+        self.assertEqual('/', zipPackager.dirname)
         
         
 class PackageTest(unittest.TestCase):
@@ -73,6 +73,8 @@ class PackageTest(unittest.TestCase):
                                            'reginae', 'invetavi'],
                            'reginiae' : []}
         self._emptyTreeRoot = 'necessaire'
+
+        self._newDirname = 'venatibus'
 
         # clean old fixtures
         self._cleanFixtures()
@@ -107,6 +109,9 @@ class PackageTest(unittest.TestCase):
         if (os.path.isdir(self._emptyTreeRoot)):
             shutil.rmtree(self._emptyTreeRoot)
         
+        if os.path.exists(self._newDirname):
+            shutil.rmtree(self._newDirname)
+
     def makeFile(self, filename, content):
         """Creates an empty file named filename."""
         f = open(filename, 'w')
@@ -184,74 +189,53 @@ class TgzPackageTest(unittest.TestCase):
     pass
 
 
-class UnzipPackageTest(PackageTest):
-    """Defines unit tests to unzip files from a package."""
-
-    def setUp(self):
-        """Set up the test fixture."""
-        super().setUp()
-        self._newDirname = 'venatibus'
-
-    def tearDown(self):
-        """Tear down the test fixture."""
-        super().tearDown()
-        if os.path.exists(self._newDirname):
-            shutil.rmtree(self._newDirname)
+class ZipPackageTest(PackageTest):
+    """Defines unit tests for the .zip file packages."""
 
     def testUnzipIntoNewDirectoryHasCorrectTimes(self):
         """Unzipping a package into a new directory has correct times."""
-        zipper = dir_packager.Zipper(self._contentTreeRoot)
-        zipper.execute()
-        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename,
-                                         parentDirname=self._newDirname)
-        unzipper.execute()
+        zipPackager = dir_packager.ZipPackager(self._contentTreeRoot)
+        zipPackager.archive()
+        zipPackager.extract(parentDirname=self._newDirname)
         self.assertTrue(os.path.isdir(self._newDirname))
         self.verifyTree(self._contentTree, self._contentTreeRoot,
                         content=self._content,
                         times=self._contentTimes)
 
-        
-class ZipPackageTest(PackageTest):
-    """Defines unit tests for the .zip file packages."""
-
     def testUnzipHasCorrectTimeStamps(self):
         """Verify that unzipping a subdirectory restores time stamps."""
-        zipper = dir_packager.Zipper(self._contentTreeRoot)
-        zipper.execute()
+        zipPackager = dir_packager.ZipPackager(self._contentTreeRoot)
+        zipPackager.archive()
         shutil.rmtree(self._contentTreeRoot)
-        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
-        unzipper.execute()
+        zipPackager.extract()
         self.verifyTree(self._contentTree, self._contentTreeRoot,
                         times=self._contentTimes)
 
     def testZipEmptyDir(self):
         """Verify zipping an empty directory."""
-        zipper = dir_packager.Zipper(self._empty_dirname)
-        zipper.execute()
-        self.assertTrue(os.path.isfile(zipper.pkgFilename))
-        self.assertTrue(os.stat(zipper.pkgFilename).st_size > 0)
+        zipPackager = dir_packager.ZipPackager(self._empty_dirname)
+        zipPackager.archive()
+        self.assertTrue(os.path.isfile(zipPackager.pkgFilename))
+        self.assertTrue(os.stat(zipPackager.pkgFilename).st_size > 0)
         os.rmdir(self._empty_dirname)
-        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
-        unzipper.execute()
+        zipPackager.extract()
         self.assertTrue(os.path.isdir(self._empty_dirname))
         self.assertTrue(len(os.listdir(self._empty_dirname)) == 0)
 
     def testZipEmptySubDirAmongFilesSkipsDir(self):
-        """Verify that zipper skips empty directory but zips files."""
-        zipper = dir_packager.Zipper(self._emptyTreeRoot)
-        zipper.execute()
+        """Verify that zipPackager skips empty directory but zips files."""
+        zipPackager = dir_packager.ZipPackager(self._emptyTreeRoot)
+        zipPackager.archive()
         shutil.rmtree(self._emptyTreeRoot)
-        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
-        unzipper.execute()
+        zipPackager.extract()
         self.verifyTree(self._emptyTree, self._emptyTreeRoot)
 
     def testZipSubdirZipsFileContent(self):
         """Verify that zipping a subdirectory zips file content."""
-        zipper = dir_packager.Zipper(self._contentTreeRoot)
-        zipper.execute()
+        zipPackager = dir_packager.ZipPackager(self._contentTreeRoot)
+        zipPackager.archive()
         shutil.rmtree(self._contentTreeRoot)
-        unzipper = dir_packager.Unzipper(zipFilename=zipper.pkgFilename)
-        unzipper.execute()
+        zipPackager.extract()
         self.verifyTree(self._contentTree, self._contentTreeRoot,
                         content=self._content)
 

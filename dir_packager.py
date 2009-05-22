@@ -53,7 +53,7 @@ class Packager(object):
 
 
 class ZipBase(Packager):
-    """Provides common services for Zipper and Unzipper."""
+    """Provides common services for ZipPackager and Unzipper."""
 
     def archive_ext(self):
         """Returns the extension for the concrete archiver."""
@@ -64,21 +64,46 @@ class ZipBase(Packager):
         raise NotImplementedError('{0}.execute() not implemented.'.
                                   format(self.__class__.__name__))
 
-class Zipper(ZipBase):
+class ZipPackager(ZipBase):
     """Models a command to create a .zip file from a directory."""
 
     def __init__(self, dirname=None, zipFilename=None):
         """Instance for recursively packaging dirname into zipFilename."""
-        super(Zipper, self).__init__(dirname, zipFilename)
+        super().__init__(dirname, zipFilename)
 
-    def execute(self):
-        """Zip the directory into the zip filename."""
+    def archive(self):
+        """Archive the directory using the zip format."""
         zipFile = zipfile.ZipFile(self.pkgFilename, 'w',
                                   zipfile.ZIP_DEFLATED)
         try:
             self.zip_tree(zipFile, self.dirname)
         finally:
             zipFile.close()
+
+    def extract(self, parentDirname='.'):
+        """Unzip the zip filename into directory."""
+        zipFile = zipfile.ZipFile(self.pkgFilename, 'r')
+        try:
+            infolist = zipFile.infolist()
+            for member in infolist:
+                if not self.isZippedDir(member):
+                    zipFile.extract(member, parentDirname)
+                else:
+                    dirname = os.path.join(parentDirname,
+                                           member.filename)
+                    os.mkdir(dirname)
+        finally:
+            zipFile.close()
+
+    def isZippedDir(self, member):
+        """Determines if the member is a zipped (empty) directory."""
+        result = False
+        if ((member.filename[-1] == '/') and
+            (member.external_attr == 48) and
+            (member.file_size == 0)):
+            result = True
+
+        return result
 
     def storeEmptyDir(self, zipFile, dirname):
         """Store the empty directory dirname."""
@@ -105,36 +130,3 @@ class Zipper(ZipBase):
                 self.storeEmptyDir(zipFile, root)
         
 
-class Unzipper(ZipBase):
-    """Models a command to extract all files from a .zip file."""
-
-    def __init__(self, dirname=None, zipFilename=None, parentDirname='.'):
-        """Instance for recursively packaging dirname into zipFilename."""
-        super(Unzipper, self).__init__(dirname, zipFilename)
-        self._parentDirname = parentDirname
-
-    def execute(self):
-        """Unzip the zip filename into directory."""
-        zipFile = zipfile.ZipFile(self.pkgFilename, 'r')
-        try:
-            infolist = zipFile.infolist()
-            for member in infolist:
-                if not self.isZippedDir(member):
-                    zipFile.extract(member, self._parentDirname)
-                else:
-                    dirname = os.path.join(self._parentDirname,
-                                           member.filename)
-                    os.mkdir(dirname)
-        finally:
-            zipFile.close()
-
-    def isZippedDir(self, member):
-        """Determines if the member is a zipped (empty) directory."""
-        result = False
-        if ((member.filename[-1] == '/') and
-            (member.external_attr == 48) and
-            (member.file_size == 0)):
-            result = True
-
-        return result
-                
