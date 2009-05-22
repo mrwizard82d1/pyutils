@@ -7,7 +7,7 @@
 from optparse import OptionParser
 import os
 
-from dir_packager import Zipper
+from dir_archiver import ZipArchive
 
 
 if __name__ == '__main__':
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     dirname = args[0]
     zipname = os.path.basename(dirname) + '.zip'
-    zipper = Zipper(dirname, zipname)
+    zipper = ZipArchive(dirname, zipname)
     zipper.execute()
     
     

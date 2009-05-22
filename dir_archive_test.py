@@ -1,7 +1,7 @@
 #! env python
 
 
-"""Defines and runs the unit tests for the dir_packager module."""
+"""Defines and runs the unit tests for the dir_archive module."""
 
 
 from datetime import datetime
@@ -10,7 +10,7 @@ import shutil
 import time
 import unittest
 
-import dir_archiver
+import dir_archive
 
 
 class DirArchiveNameTest(unittest.TestCase):
@@ -18,33 +18,33 @@ class DirArchiveNameTest(unittest.TestCase):
 
     def testDirnameNoPkgName(self):
         """Verify package name correct when dirname supplied."""
-        toTest = dir_packager.ZipArchive('le_cheque')
+        toTest = dir_archive.ZipArchive('le_cheque')
         self.assertEqual('le_cheque', toTest.dirname)
         self.assertEqual('le_cheque.zip', toTest.pkgFilename)
 
     def testDirnamePkgName(self):
         """Verify the dirname and package name are both set correctly."""
-        toTest = dir_packager.TgzArchive('ripis', 'olerinis.tgz', )
+        toTest = dir_archive.TgzArchive('ripis', 'olerinis.tgz', )
         self.assertEqual('olerinis.tgz', toTest.pkgFilename)
         self.assertEqual('ripis', toTest.dirname)
 
     def testNoDirnameNoPkgName(self):
         """Verify the dirname and package name when none are supplied."""
-        toTest = dir_packager.TgzArchive()
+        toTest = dir_archive.TgzArchive()
         self.assertEqual('', toTest.dirname)
         self.assertEqual('dir_package.tgz', toTest.pkgFilename)
 
     def testNoDirnamePkgName(self):
         """Verify the dirname if only the package name if supplied."""
         filename = 'quaerunt.zip'
-        toTest = dir_packager.ZipArchive(zipFilename=filename)
+        toTest = dir_archive.ZipArchive(zipFilename=filename)
         self.assertEqual(os.path.splitext(filename)[0],
                          toTest.dirname)
         self.assertEqual(filename, toTest.pkgFilename)
 
     def testRootOnlyNoPkgname(self):
         """Verify the package name is correct if the dir is root."""
-        toTest = dir_packager.ZipArchive('/')
+        toTest = dir_archive.ZipArchive('/')
         self.assertEqual('dir_package.zip', toTest.pkgFilename)
         self.assertEqual('/', toTest.dirname)
         
@@ -247,7 +247,7 @@ class TgzArchiveTest(ArchiveTest, unittest.TestCase):
 
     def toTest(self, dirname=None, zipFilename=None):
         """Return the instance to test."""
-        return dir_packager.TgzArchive(dirname, zipFilename)
+        return dir_archive.TgzArchive(dirname, zipFilename)
     
 
 class ZipArchiveTest(ArchiveTest, unittest.TestCase):
@@ -255,7 +255,7 @@ class ZipArchiveTest(ArchiveTest, unittest.TestCase):
 
     def toTest(self, dirname=None, zipFilename=None):
         """Return the instance to test."""
-        return dir_packager.ZipArchive(dirname, zipFilename)
+        return dir_archive.ZipArchive(dirname, zipFilename)
     
             
 def suite():
