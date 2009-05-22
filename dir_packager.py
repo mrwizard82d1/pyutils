@@ -52,8 +52,20 @@ class Packager(object):
                                   format(self.__class__.__name__))
 
 
+class TgzArchive(Packager):
+    """Models an archive in the .tgz format."""
+
+    def archive(self):
+        """Archive my directory."""
+        pass
+
+    def extract(self, parentDirname='.'):
+        """Extract the contents of my archive."""
+        pass
+
+
 class ZipPackager(Packager):
-    """Models a command to create a .zip file from a directory."""
+    """Models an archive in the .zip format."""
 
     def __init__(self, dirname=None, zipFilename=None):
         """Instance for recursively packaging dirname into zipFilename."""
