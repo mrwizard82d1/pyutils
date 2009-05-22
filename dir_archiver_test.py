@@ -10,7 +10,7 @@ import shutil
 import time
 import unittest
 
-import dir_packager
+import dir_archiver
 
 
 class DirArchiveNameTest(unittest.TestCase):
