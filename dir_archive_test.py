@@ -88,7 +88,6 @@ class ArchiveTest(object):
     def tearDown(self):
         """Tear down the test fixture."""
         self._cleanFixtures()
-        pass
 
     def _cleanFixtures(self):
         """Remove all test fixtures from the OS filesystem."""
@@ -150,10 +149,8 @@ class ArchiveTest(object):
             actualTimeStamp = datetime.fromtimestamp(actualTimeSeconds)
             msg = 'Restored time of {0}:\n  {1} != {2}.'.\
                   format(pathname, expectTimeStamp, actualTimeStamp)
-            self.assertAlmostEqual(expectTimeSeconds,
-                                   actualTimeSeconds,
-                                   places=1,
-                                   msg=msg)
+            self.assertTrue(abs(expectTimeSeconds - actualTimeSeconds) <= 1,
+                            msg)
         except KeyError:
             pass
     

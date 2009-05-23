@@ -7,6 +7,7 @@
 from datetime import datetime
 import os
 import tarfile
+import time
 import zipfile
 
 
@@ -99,6 +100,7 @@ class ZipArchive(Archive):
                     dirname = os.path.join(parentDirname,
                                            member.filename)
                     os.mkdir(dirname)
+                self.touch(member, parentDirname)
         finally:
             zipFile.close()
 
@@ -121,6 +123,26 @@ class ZipArchive(Archive):
         zipInfo.external_attr = 48
         zipFile.writestr(zipInfo, '')
 
+    def touch(self, member, dirname):
+        """Set the date and time of the extracted (a lready) member."""
+        stat_time = self.zip_to_stat_time(member.date_time)
+        os.utime(os.path.join(dirname, member.filename),
+                 (stat_time, stat_time))
+
+    def zip_to_stat_time(self, zipTime):
+        """Convert zipTime to a file 'stat' time."""
+        # Convert zipTime (6-tuple) to datetime.
+        date_time = datetime(*zipTime)
+
+        # Convert datetime to tuple like time.localtime()
+        time_tuple = date_time.timetuple()
+
+        # Convert tuple to time integer.
+        timeSeconds = time.mktime(time_tuple)
+
+        # Return the integral seconds.
+        return int(timeSeconds)
+        
     def zip_tree(self, zipFile, top):
         """Zip all files (recursively) beneath root into zipFile."""
         ## assert os.listdir(top), "Cannot zip empty root directory."
