@@ -1,7 +1,7 @@
 #! env python
 
 
-"""Manages packaging directories into single files."""
+"""Manages an archive in a particular format."""
 
 
 from datetime import datetime
@@ -12,95 +12,127 @@ import zipfile
 
 
 class Archive(object):
-    """Provides common services for all child classes."""
+    """Common functions for all archives."""
 
-    def __init__(self, dirname=None, pkgFilename=None):
-        """Instance for recursively packaging dirname into pkgFilename. 
+    def __init__(self, dirname, archiveBase):
+        """Archive(archiveBase) -> o
 
-        If dirname is not supplied, I package the current working
-        directory. If pkgFilename is not supplied, I construct one
-        from dirname. If dirname is '' (the default), pkgFilename is
-        the current working directory name with the default extension
-        for the concrete implementor appended. Otherwise, it is the
-        basename of the specified directory with default extension
-        appended. 
+        Constructs an instance. If archiveBase is None, the archive
+        base is dirname. If dirname is '/' (root) and archiveBase is
+        None, the archiveBase is 'root'. If dirname is '.' (the
+        current directory), raises ValueError.
         """
-        if not dirname and not pkgFilename:
-            self.dirname = ''
-            self.pkgFilename = 'dir_package' + self.archive_ext()
-        elif dirname and not pkgFilename:
-            self.dirname = dirname
-            head, tail = os.path.split(self.dirname)
-            while head != '/' and not tail:
-                head, tail = os.path.split(self.dirname)
-            basename = (tail if tail else 'dir_package')
-            self.pkgFilename = '{0}.zip'.format(basename)
-        elif not dirname and pkgFilename:
-            self.dirname = os.path.splitext(pkgFilename)[0]
-            self.pkgFilename = pkgFilename
-        else:
-            # both dirname and pkgFilename
-            self.dirname = dirname
-            self.pkgFilename = pkgFilename
+        
+        if ((dirname == '.') or
+            (dirname == os.getcwd())):
+            raise ValueError('Directory cannot be' +
+                             'current working directory.')
+        
+        self.dirname = dirname
+        self._archiveBase = (archiveBase if 
+                             archiveBase else
+                             self.dirname)
+        assert self._archiveBase, 'Archive base cannot be None.'
+
+        if self.dirname == '/':
+            self._archiveBase = 'root'
+
+    def archiveFilename(self):
+        """Returns the archive filename."""
+        return self._archiveBase + self.archiveExt()
 
 
 class TgzArchive(Archive):
-    """Models an archive in the .tgz format."""
+    """Manages a .tgz archive."""
+
+    EXT = '.tgz'
+    
+    def __init__(self, archiveBase, dirname=None):
+        """TgzArchive(archiveBase, dirname=None) -> o
+
+        Constructs an instance from a archiveBase. ArchiveBase is the
+        archive filename without the extension. Note that dirname is
+        only used by child classes.
+        """
+        super().__init__(dirname, archiveBase)
+
+    def archiveExt(self):
+        """Returns the format-specific extension.
+
+        The returned value includes the leading dot ('.')
+        """
+        return TgzArchive.EXT
+    
+    def extract(self):
+        tgzArchive = tarfile.open(self.archiveFilename(), 'r:*')
+        try:
+            tgzArchive.extractall()
+        finally:
+            tgzArchive.close()
+
+
+class TgzDirArchive(TgzArchive):
+    """Manages an .tgz (.tar.gz) archive of a directory."""
+
+    def __init__(self, dirname, archiveBase=None):
+        """TgzDirArchive(dirname, archiveBase=None) -> o
+
+        Constructs an instance. If archiveBase is None, the archive
+        base is dirname. 
+        """
+        super().__init__(archiveBase, dirname=dirname)
 
     def archive(self):
-        """Archive my directory."""
-        archive = tarfile.open(self.pkgFilename, 'w:gz')
+        """Archives my dirname into my archive filename."""
+        tgzTarGzFilename = self.tarGzFilename()
+        tgzArchive = tarfile.open(tgzTarGzFilename, 'w:gz')
         try:
-            archive.add(self.dirname)
+            tgzArchive.add(self.dirname)
         finally:
-            archive.close()
+            tgzArchive.close()
+            
+        if os.path.exists(self.archiveFilename()):
+            os.remove(self.archiveFilename())
+        os.rename(tgzTarGzFilename, self.archiveFilename())
 
-    def archive_ext(self):
-        """Returns the extension for the concrete archiver."""
-        return '.tgz'
-        
-    def extract(self, parentDirname='.'):
-        """Extract the contents of my archive."""
-        archive = tarfile.open(self.pkgFilename, 'r:*')
-        try:
-            archive.extractall(parentDirname)
-        finally:
-            archive.close()
+    def tarGzFilename(self):
+        """Returns my .tar.gz filename."""
+        return self._archiveBase + '.tar.gz'
 
 
 class ZipArchive(Archive):
-    """Models an archive in the .zip format."""
+    """Manages a .zip archive."""
 
-    def __init__(self, dirname=None, zipFilename=None):
-        """Instance for recursively packaging dirname into zipFilename."""
-        super().__init__(dirname, zipFilename)
+    EXT = '.zip'
+    
+    def __init__(self, archiveBase, dirname=None):
+        """ZipArchive(archiveBase, dirname=None) -> o
 
-    def archive(self):
-        """Archive the directory using the zip format."""
-        zipFile = zipfile.ZipFile(self.pkgFilename, 'w',
-                                  zipfile.ZIP_DEFLATED)
-        try:
-            self.zip_tree(zipFile, self.dirname)
-        finally:
-            zipFile.close()
+        Constructs an instance from archiveBase. ArchiveBase is the
+        archive filename without the extension. Note that dirname is
+        only used by child classes.
+        """
+        super().__init__(dirname, archiveBase)
 
-    def archive_ext(self):
-        """Returns the extension for the concrete archiver."""
-        return '.zip'
-        
-    def extract(self, parentDirname='.'):
-        """Unzip the zip filename into directory."""
-        zipFile = zipfile.ZipFile(self.pkgFilename, 'r')
+    def archiveExt(self):
+        """Returns the format-specific extension.
+
+        The returned value includes the leading dot ('.')
+        """
+        return ZipArchive.EXT
+    
+    def extract(self):
+        """Extract my archive into the current working directory."""
+        zipFile = zipfile.ZipFile(self.archiveFilename(), 'r')
         try:
             infolist = zipFile.infolist()
             for member in infolist:
                 if not self.isZippedDir(member):
-                    zipFile.extract(member, parentDirname)
+                    zipFile.extract(member)
                 else:
-                    dirname = os.path.join(parentDirname,
-                                           member.filename)
+                    dirname = member.filename
                     os.mkdir(dirname)
-                self.touch(member, parentDirname)
+                self.touch(member)
         finally:
             zipFile.close()
 
@@ -114,20 +146,10 @@ class ZipArchive(Archive):
 
         return result
 
-    def storeEmptyDir(self, zipFile, dirname):
-        """Store the empty directory dirname."""
-        dir_mtime = datetime.fromtimestamp(os.stat(dirname).st_mtime)
-        zipTime = (dir_mtime.year, dir_mtime.month, dir_mtime.day,
-                   dir_mtime.hour, dir_mtime.minute, dir_mtime.second)
-        zipInfo = zipfile.ZipInfo(dirname + os.sep, zipTime)
-        zipInfo.external_attr = 48
-        zipFile.writestr(zipInfo, '')
-
-    def touch(self, member, dirname):
-        """Set the date and time of the extracted (a lready) member."""
+    def touch(self, member):
+        """Set the date and time of the extracted (already) member."""
         stat_time = self.zip_to_stat_time(member.date_time)
-        os.utime(os.path.join(dirname, member.filename),
-                 (stat_time, stat_time))
+        os.utime(member.filename, (stat_time, stat_time))
 
     def zip_to_stat_time(self, zipTime):
         """Convert zipTime to a file 'stat' time."""
@@ -143,6 +165,36 @@ class ZipArchive(Archive):
         # Return the integral seconds.
         return int(timeSeconds)
         
+
+class ZipDirArchive(ZipArchive):
+    """Manages an .zip (.tar.gz) archive of a directory."""
+
+    def __init__(self, dirname, archiveBase=None):
+        """ZipDirArchive(dirname, archiveBase=None) -> o
+
+        Constructs an instance. If archiveBase is None, the archive
+        base is dirname. 
+        """
+        super().__init__(archiveBase, dirname=dirname)
+
+    def archive(self):
+        """Archive the directory using the zip format."""
+        zipFile = zipfile.ZipFile(self.archiveFilename(), 'w',
+                                  zipfile.ZIP_DEFLATED)
+        try:
+            self.zip_tree(zipFile, self.dirname)
+        finally:
+            zipFile.close()
+
+    def storeEmptyDir(self, zipFile, dirname):
+        """Store the empty directory dirname."""
+        dir_mtime = datetime.fromtimestamp(os.stat(dirname).st_mtime)
+        zipTime = (dir_mtime.year, dir_mtime.month, dir_mtime.day,
+                   dir_mtime.hour, dir_mtime.minute, dir_mtime.second)
+        zipInfo = zipfile.ZipInfo(dirname + os.sep, zipTime)
+        zipInfo.external_attr = 48
+        zipFile.writestr(zipInfo, '')
+
     def zip_tree(self, zipFile, top):
         """Zip all files (recursively) beneath root into zipFile."""
         ## assert os.listdir(top), "Cannot zip empty root directory."
@@ -159,3 +211,5 @@ class ZipArchive(Archive):
                 self.storeEmptyDir(zipFile, root)
         
 
+
+            
