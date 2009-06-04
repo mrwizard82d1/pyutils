@@ -282,8 +282,12 @@ class ZipArchiveTest(ArchiveTest, unittest.TestCase):
             
 def suite():
     """Returns the suite of unit tests in this module."""
-    result = None
-    return result
+    suites = [
+        unittest.TestLoader().loadTestsFromTestCase(DirArchiveNameTest),
+        unittest.TestLoader().loadTestsFromTestCase(TgzArchiveTest),
+        unittest.TestLoader().loadTestsFromTestCase(ZipArchiveTest),
+        ]
+    return unittest.TestSuite(suites)
 
 
 if __name__ == '__main__':

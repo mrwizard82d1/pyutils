@@ -23,10 +23,9 @@ if __name__ == '__main__':
                       help="Path to list (default = 'PATH')")
     (options, args) = parser.parse_args()
     if (len(args) > 0):
-        print parser.print_help()
-        sys.exit(1)
+        parser.error('No arguments expected: {0}'.format(args))
 
     thePath = os.environ[ options.path.upper() ]
     theListing = path2list( thePath )
-    print theListing
+    print(theListing)
     
