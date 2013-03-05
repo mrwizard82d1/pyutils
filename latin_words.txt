@@ -181,7 +181,7 @@ convivium, convivi n : noun
 decretum, decreti n : noun
     judgment
 dictum, dicti n : noun
-    contract
+    saying, word; maxim; bon mot, witticism; order
 ferrum, ferri n : noun
     iron, steel
 otium, otii n : noun
@@ -1081,7 +1081,9 @@ panis, panis m : noun
 Pan, Panos/is m : noun
     Greek god of shepherds
 paucus, pauci m : noun
-    only a small/an indefinite number of people (pl).
+    only a small/an indefinite number of people (pl)., few; a few
+paucum, pauci n : noun
+    only a small/an indefinite number of people (pl)., few; a few
 febris, febris f : noun
     fever; attack of fever
 colubra, colubrae f : noun
@@ -1242,7 +1244,7 @@ regula, regulae f : noun
     rule
 miscellanea : noun
     miscellany
-gaudium : noun
+gaudium, gaudii n : noun
     joy
 adiectivum : noun
     adjective
@@ -1635,7 +1637,7 @@ fabulor, -are, -avi, atus intr : verb
 aberro, aberrare, aberravi, -atus intr : verb
     stray, wander, deviate;
 erro, errare, erravi, erratus : verb
-    wander, go astray; make a mistake
+    wander; err, go astray; make a mistake; be mistaken	
 deterreo, deterrere, deterrui, -itus tr : verb
     deter; frighten away;
 abdico, abdicare, abdicavi, -atus tr : verb
@@ -1685,7 +1687,7 @@ augeo, augere, auxi, auctus tr : verb
 turbo, turbare, turbavi, turbatus : verb
     disturb, throw into confusion
 video, videre, vidi, visus : verb
-    see, look at; consider
+    see, look at; observe, understand; consider
 audio, audire, audivi, auditus : verb
     hear, listen, accept, agree with
 defendo, -ere, -i, defensus tr : verb
@@ -1707,7 +1709,7 @@ navigo, navigare, navigavi, navigatus : verb
 vivo, vivere, vixi, victus : verb
     be alive, live; survive; reside
 do, dare, dedi, datus tr : verb
-    give; dedicate; sell; pay; bestow
+    give; offer; dedicate; sell; pay; bestow
 habito, habitare, habitavi, habitatus : verb
     inhabit, dwell; live, stay
 candido, candidare, candavi, -datus tr : verb
@@ -1731,7 +1733,7 @@ proximo, proximar, proximare, proximatus : verb
 porto, portare, portavi, portatus : verb
     carry, bring
 amo, amare, amavi, amatus : verb
-    love
+    love, like
 canto, cantare, cantavi, cantatus : verb
     sing
 habeo, habere, habui, habitus : verb
@@ -1748,8 +1750,8 @@ varico, varicare, varicavi, varicatus : verb
     straddle (with legs apart)
 ruo, ruere, rui, rutus : verb
     destroy, ruin, overthrow; charge (in + acc)
-coniugo, -are, -avi, -atus tr : verb
-    join in marriage; join together
+coniugo, coniugare, -avi, -atus tr : verb
+    join in marriage; form a friendship; join together, unite in (L+S)
 fluo, fluere, fluxi, fluxus : verb
     flow, stream; emanate, proceed from
 lavo, lavare, lavi, lotus : verb
@@ -1774,8 +1776,8 @@ salveo, salvere, -, - : verb
     be well/in good health
 saluto, salutare, salutavi, -atus : verb
     greet; wish well; hail; salute
-valeo, valere, -ui, -itus : verb
-    be strong/powerful/influential/healthy
+valeo, valere, valui, valiturum : verb
+    be strong, have power; be well
 sum, es, est, sumus, estis, sunt : verb
     to be
 eram, eras, erat, eramus, eratis, erant : verb
@@ -1899,7 +1901,7 @@ migro, migrare, migravi, migratus : verb
 invideo, invidere, invidi, invisus : verb
     envy, regard with envy/ill will
 recuso, recusare, recusavi, recusatus : verb
-    reject, refuse, refuse to
+    reject, refuse, refuse to; object, decline
 torqueo, torquere, torsi, tortus : verb
     turn, twist; hurl; torture
 oblittero, oblitterare, -avi, -atus : verb
@@ -2010,7 +2012,7 @@ cano, canere, cani, canitus : verb
     sing, celebrate, chant; crow
 cano, canere, cecini, cantus : verb
     sing, celebrate, chant; crow
-culpo, culpare, culpavi, culpatus tr : verb
+culpo, culpare, culpavi, culpatus : verb : tr.
     blame, find fault with, censure
 nicto, nictare, nictavi, nictatus : verb
     blink
@@ -2096,8 +2098,8 @@ incarcero, incarcerare, -avi, -atus tr : verb
     imprison; incarcerate
 emollio, emollier, emollivi, emollitus : verb
     soften; enervate, mellow
-pecco, peccare, peccavi, peccatus intr : verb
-    sin; do wrong
+pecco, peccare, peccavi, peccatus : verb : intr.
+    sin; do wrong; blame, find fault with, censure, reproach; accuse, condemn
 scintillo, scintillare, -avi, -atus : verb
     send out sparks; sparkle
 dubo, dubare : verb
@@ -2307,9 +2309,9 @@ differo, differre, distuli, dilatus : verb
 animo, animare, animavi, animatus tr : verb
     animate, give/bring life; revive
 cogito, cogitare, cogitavi, cogitatum : verb
-    think, ponder
+    think, ponder, consider, plan
 conservo, conservare, conservavi, conservatum : verb
-    preserve, conserve, maintain
+    preserve, conserve, maintain (stronger than servare)
 debeo, debere, dedi, datum : verb
     owe; ought, must, should
 laudo, laudare, laudavi, laudatum : verb
@@ -2324,14 +2326,14 @@ respondeo, respondere, respondui, responditum : verb
     reply, respond
 coniugaro, coniugaro, coniugavi, coniugatum : verb
     conjugate
-pronuntio, pronuntiare : verb
-    pronounce
+pronuntio, pronuntiare, -avi, -atus : verb
+    announce, pronounce; proclaim; relate; divulge; recite; utter
 invideo, invidere, invidi, invidium : verb
     be envious
 interrego, interregare : verb
     ask, question
-regno, regnare : verb
-    rule; govern
+regno, regnare, regnavi, regnatus : verb
+    reign, rule; govern; be king; play the lord, be master
 iubeo, iubere, iussi, iussium : verb
     order, command
 acer, acris, -e : adj.
@@ -2572,8 +2574,12 @@ salvus, salva, salvum : adj.
     well, unharmed, sound; alive; safe, saved
 tatus, tanta, tantum : adj.
     of such size; so great, so much
-Romanus, Romani, Romana, Romanae : adj.
+Romanus, -a, -um : adj.
     Roman
+romanus, romani m : adj.
+    Roman; the Romans (pl.)
+Romanicus, -a, -um : adj.
+    Roman (architectural style)
 Graecus, Graeci, Graeca, Graecae : adj.
     Greek
 Aegyptus, Aegypti, Aegypta, Aegyptae : adj.
@@ -2783,7 +2789,7 @@ nimius, nimia, nimium : adj.
 hilarus, -a, -um : adj.
     cheerful, lively, light-hearted
 paucus, -a, -um : adj.
-    little, small in quantity/extent
+    little, small in quantity/extent; few (usu. pl.); just a few
 perspicuus, perspicuia, perspicuum : adj.
     transparent, clear; evident
 perspicax, perspicacis (gen.) : adj.
@@ -2886,8 +2892,9 @@ diluvialis, -e : adj.
     of a deluge/flood
 effetus, -a, -um : adj.
     exhausted, worn out
-utilis : adj.
-    utilitysemper : adv.
+utilis, -e : adj.
+    useful, profitable, practical, helpful, advantageous, utility
+semper : adv.
     always
 vertiginosus; -ous, -ose; -some : adv.
     full of; prone to; rich in;
@@ -2905,7 +2912,7 @@ ante : adv.
     before, previously, first, before this, earlier
 imprimis : adv.
     in the first place, first, chiefly
-salve : adv.
+salve, salvete : interj.
     hail!/welcome!; farewell!
 difficile : adv.
     with difficulty
@@ -2952,8 +2959,9 @@ ave : adv.
 multum : adv.
     much, greatly
 nimis : adv.
-    too, too much, excessively, in excesset : conj.
-    and
+    too, too much, excessively, in excess
+et : conj.
+    and; even
 atque : conj.
     and
 -que (on second word) : conj.
@@ -3000,25 +3008,25 @@ si : conj.
     if
 cum : conj.
     when
-a, ab (abl) : prep.
-    away from
-e, ex (abl) : prep.
+a, ab (+ abl) : prep.
+    away from, from
+e, ex (+ abl) : prep.
     out of
-de (abl) : prep.
-    down from
-in (abl) : prep.
-    in, on
-cum (abl) : prep.
+de (+ abl) : prep.
+    down from, from
+in (+ abl) : prep.
+    in, into, on
+cum (+ abl) : prep.
     with
 (abl) : prep.
     generally motion away
-in (acc) : prep.
+in (+ acc) : prep.
     into
-ad (acc) : prep.
+ad (+ acc) : prep.
     to, toward
-circum (acc) : prep.
+circum (+ acc) : prep.
     around
-supra (acc): : prep.
+supra (+ acc): prep.
     above
 (acc) : prep.
     generally motion toward
@@ -3036,3 +3044,47 @@ apud : prep.
     at, by, near, among; at the house of; before  
 per : prep.
     through (space); during (time); by, by means of
+volo, volare, volavi, volatus : verb
+    fly
+ingratus, -a, -um : adj.
+    unpleasant; ungrateful; thankless
+vale, valete : interj.
+    good-bye, farewell
+te : pron.
+    you
+quem : rel. pron.
+    whom
+deporto, deportare, -avi, -atus : verb
+    bring, convey (to); carry along/down (current); transport
+vito, vitare, -avi, atus : verb
+    avoid, shun; evade
+creo, creare, -avi, -atus : verb : tr.
+    create/bring into being/make; procreate; beget/sire; give birth to
+onero, onerare, -avi, -atus : verb
+    load, burden; oppress
+obduro, obdurare, -avi, -atus : verb
+    be hard, persist, endure
+basio, basiare, -avi, -atus : verb : tr.
+    kiss, give a kiss
+antiquus, -a, -um : adj.
+    old/ancient/aged; time-honored; simple/classic; venerable
+meus, -a, -um : adj.
+    my
+tuus, -a, -um : adj.
+    your (speaking to only *one* person)
+sanus, -a, -um : adj.
+    sound; healthy; sensible; sober; sane
+immodicus, -a, -um : adj.
+    beyond measure, immoderate, excessive
+saevis, -a, -um : adj.
+    fierce, savage, raging, cruel, harsh
+saevio, saevire, -ivi, -itus : verb
+    rage, rave, be angry
+O : interj.
+    O
+sine (+ abl.) : prep.
+    without
+avarus, -a, -um : adj.
+    greedy, avaricious
+satio, satiare, -avi, -atum : verb
+    satisfy, sate
