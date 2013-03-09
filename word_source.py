@@ -11,9 +11,10 @@ class WordSource(object):
     """Models a source of words."""
 
     def __init__(self):
-        lines = open('latin_words.txt', 'rt').readlines()
+        lines = [l.rstrip('\n') for l
+                 in open('latin_words.txt', 'rt').readlines()]
         latin_terms = itertools.islice(lines, 0, len(lines), 2)
-        english_definitions = itertools.islice(lines[1:],
+        english_definitions = itertools.islice(lines,
                                                1, len(lines), 2)
         self.latin_english_dict = \
             dict(list(itertools.izip(latin_terms, english_definitions)))
@@ -34,11 +35,26 @@ class WordSource(object):
         return next_latin_word, self.latin_english_dict[next_latin_word]
 
 
+def verb():
+    """Calculate a random verb declension."""
+    return random.randrange(6)
+
+
+def noun():
+    """Calculate a random (first or second) noun declension."""
+    return [random.randrange(6), random.randrange(2)]
+
+
+def noun3():
+    """Calculate a random third noun declension."""
+    return [random.randrange(3)] + noun()
+
+
 if __name__ == '__main__':
     ws = WordSource()
     i = 0
-    for english, latin in ws:
+    for latin, english in ws:
         i += 1
-        print('english: latin=%s: %s' % (english, latin))
+        print('%s\n%s' % (latin, english))
         if i >= 9:
             break
