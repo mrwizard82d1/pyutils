@@ -268,6 +268,10 @@ honor, honoris f : noun
     honor
 inaures, inauris f pl : noun
     earrings
+interdictum, interdicti n : noun
+    prohibition, provisional decree of a praetor
+interdicto, interdicere, interdixi, interdictus : verb
+    forbid, interdect, prohibit; debar (from)
 ius, iuris n : noun
     right
 lex, legis f : noun
@@ -384,8 +388,9 @@ cerebrum, cerebrin : noun
     brain
 concilium, concilii n : noun
     assembly, council
-annus : noun
-    year
+annus, anni m : noun
+    year (astronomical/civil); age, time of life; year's produce;
+    circuit, course
 decanus, decani m : noun
     chief of ten
 repudium, repudi(i) n : noun
@@ -503,7 +508,10 @@ usura, usurae f : noun
 declivitas, declivitatis f : noun
     declivity, slope; descent;
 clivus, clivi m : noun
-    slope, incline; sloping ground
+    slope (sing.), incline; sloping ground; inclined passage/surface;
+    (street name)
+clivus, cliva, clivum : adj
+    which forbids anything to be done (pl.); (having bad omens?)
 rudis, rudis f : noun
     stick/rod; stirring/mixing stick
 rudis, rudis f : noun
@@ -569,7 +577,11 @@ frons, frontis n : noun
 frons, frondis f : noun
     foliage, leaves, leafy branch, green bough
 obsequium, obsequi(i) n : noun
-    compliance (act/form/sex/orders)
+    compliance (act/form/sex/orders);
+    consideration/deference/solicitude; services;
+    obediance/allegiance/discipline (military); tractability/docility
+    (animals); servility/subservience/obsequiousness; ceremony (Bee);
+    attendance; retinue
 gratitudo, gratitudinis n : noun
     gratitude
 sacrum, sacri n : noun
@@ -1195,7 +1207,8 @@ eventus, eventus m : noun
 gestus, gestus m : noun
     movement of the limbs, bodily action, carriage
 fastidium, fastidi(i) n : noun
-    loathing, disgust; squeamishness
+    loathing, disgust; squeamishness; scornful contempt, pride;
+    fastidiousness 
 fastus, fasti m : noun
     calendar (pl.), almanac, annals
 fastus, fastus m : noun
@@ -1396,8 +1409,11 @@ quaeso, quaesere, -, - : verb
     beg, ask, ask for, seek
 volo, velle, volui, - : verb
     want, wish, prefer; be willing, will
-fingo, fingere, finxi, fictus tr : verb
-    fashion, form, shape
+fingo, fingere, finxi, fictus tr : verb (trans)
+    mold, form, shape; create, invent; produce; imagine; compose;
+    devise; contrive; adapt, transform into; modify
+    (appearance/character/behavior); groom; make up (story/excuse);
+    pretent, pose; forge; conterfeit; act insincerely
 fulmino, fulminare, fulminavi, fulminatus : verb
     strike (lightning)
 vindicare : verb
@@ -1411,7 +1427,8 @@ mulgeo, mulgere, mulsi, mulctus : verb
 concilio, conciliare, -avi, -atus : verb
     assemble, unity, win over
 curro, currere, cucurri, cursus : verb
-    run/trot/gallop, hurry/hasten
+    run/trot/gallop, hurry/hasten/speed, move/travel/proceed/flow
+    swiftly/quickly 
 excurro, excurrere, excurri, excurrsus : verb
     run out, extend
 gravo, gravare, gravavi, gravatus tr : verb
@@ -1465,7 +1482,7 @@ iacio, iacere, ieci, iactus : verb
 luctor, luctario, luctatus sum dep : verb
     wrestle; struggle; fight (against)
 eluctor, eluctari, eluctus sum dep : verb
-    struggle out of
+    force a way through; surmount a difficulty; struggle out of
 incipio, -ere, incepi, inceptus : verb
     begin; start, undertake, take up
 simulare : verb
@@ -1551,7 +1568,7 @@ tempero, temperare, temperavi, temperatus : verb
 distempero, distemperare, -avi, -atus : verb
     mix badly
 reduco, reducere, reduxi, reductus : verb
-    lead back, bring back; reduce
+    lead back, bring back; restore; reduce
 lustro, lustrare, lustravi, lustratus : verb
     purify; make bright
 ringor, ringi, - dep : verb
@@ -1567,9 +1584,11 @@ jurgo, jurgare, jurgavi, juratus : verb
 prehendo, prehendere, -i, prehensus tr : verb
     catch/capture
 sono, sonare, sonavi, sonatus (late) : verb
-    make a noise/sound
+    make a noise/sound; speak/utter, emit sound; be spoken of (as);
+    express/denote; echo/resound; be heard, sound; celebrate in speech
 sono, sonere, sonui, sonitus (early) : verb
-    make a noise/sound
+    make a noise/sound; speak/utter, emit sound; be spoken of (as);
+    express/denote; echo/resound; be heard, sound; celebrate in speech
 oppugno, oppugnare, oppgnavi, oppugnatus : verb
     attack, assault, storm,
 procedo, procedere, processi, processus : verb
@@ -1582,7 +1601,7 @@ exstirpo, exstirpare, -avi, -atus tr : verb
     root out, extirpate;
 tergiversor, -sari, -satus sum dep : verb
     turn one's back on a challenge
-advenio, -nire, -ni, -ntus intr : verb
+advenio, -nire, -ni, -utus intr : verb
     come to, arrive; arrive at
 praescio, praescire, -ivi, -itus tr : verb
     find out/learn beforehand
@@ -1823,7 +1842,8 @@ mereor, mereri, meritus sum dep : verb
 opinor, opinari, opinatus sum dep : verb
     suppose; imagine
 afficio, afficere, affeci, affectus : verb
-    affect, make impression
+    affect, make impression; move, influence; cause (hurt/death),
+    afflict, weaken
 comporto, comportare, -avi, comportus tr : verb
     carry, transport, bring in
 concateno, -are, -avi, -atus tr : verb
@@ -2135,8 +2155,9 @@ revenio, revenire, reveni, reventus : verb
 noceo, nocere, nocui, nocitus : verb
     harm; hurt; injure (w/ dat.)
 licet, licere, licuit, licitus est impers : verb
-    it is permitted; one may
-liceo, licere, licui, - intr : verb
+    it is permitted, one may; it is all right, lawful, allowed,
+    permitted
+liceo, licere, licui, - : verb (intrans)
     fetch (price) (w/ abl./gen.)
 substo, substare, -, - intr : verb
     stand firm; stand under
@@ -2163,7 +2184,8 @@ flagro, flagrare, flagravi, -atus : verb
 pendo, pendere, pependi, pensus : verb
     weigh out; pay, pay out
 pendeo, pendere, pependi, - : verb
-    hang, hang down; depend
+    hang, hang down; depend [~ ab ore => hang upon the lips; listen
+    attentively]; 
 torpeo, torpere, -, - : verb
     be numb or lethargic
 adulo, adulare, adulavi, adulatus tr : verb
@@ -2360,8 +2382,8 @@ bonus, bona, -um : adj.
     good
 crudus, cruda, -um : adj.
     raw
-dexter, dextera, -um : adj.
-    related to or situated on the right side
+dexter, dextra, -um : adj.
+    skillful, dexterous; favourable; fortunate; right, on the right hand
 siccus, sicca, siccum : adj.
     dry
 internecinus, internecina, internecinum : adj.
@@ -2481,7 +2503,8 @@ rudis, rudis, rude : adj.
 rubicundus, -a, -um : adj.
     suffused with red, ruddy
 medius, -ia, -ium : adj.
-    middle, middle of, mid; common
+    middle, middle of, mid; common, neutral, ordinary, moderate;
+    ambiguous 
 sensatus, -a, -um : adj.
     intelligent
 sumptuosus, -a, -um : adj.
@@ -3003,7 +3026,7 @@ igitur : conj.
 itaque : conj.
     therefore
 licet : conj.
-    although; granted that (subj)
+    although, granted that (with subjunctive)
 si : conj.
     if
 cum : conj.
@@ -3081,10 +3104,228 @@ saevis, -a, -um : adj.
 saevio, saevire, -ivi, -itus : verb
     rage, rave, be angry
 O : interj.
-    O
+    O!
 sine (+ abl.) : prep.
     without
 avarus, -a, -um : adj.
     greedy, avaricious
 satio, satiare, -avi, -atum : verb
     satisfy, sate
+discus, disci n : noun
+    disk/disc; discus; dish (Ecc); paten in Greek rite; (service) tray (Cal).
+stolidus, -a, -um : adj.
+    dull, stupid, insensible; brutish; inert (things)
+philitrum, philtri n : noun
+    love-potion
+rusticus, rustici m : noun
+    peasant, farmer
+rusticus, -a, -um : adj.
+    country, rural; plain, homely; rustic
+renitor, reniti, renisus sum : verb (dep)
+    struggle, offer physical resistance; be resistant (substance), not
+    to yield 
+nitor, niti, nisus sum : verb (dep)
+    press/lean upon; struggle; advance; depend on (with abl.); strive,
+    labor 
+nitor, niti, nixus sum : verb (dep)
+    press/lean upon; struggle; advance; depend on (with abl.); strive,
+    labor 
+quotidie : adv.
+    daily, every day; day by day; usually, ordinarily, commonly
+probo, probare, probavi, probatus : verb (trans)
+    approve (of), esteem/commend/recommend/certify; give
+    assent/approval/sanction; let; show to be real/true;
+    examine/test/try/prove/demonstrate; get accepted;
+probus, proba, probum : adj.
+    good, honest
+index, indicis c: noun
+    sign, token, proof; informer, tale bearer
+indicium, indici(i) n: noun
+    evidence (before a court); information, proof; indication
+indico, indicare, indicavi, indicatus: verb
+    point out, show, indicate, expose, betray, reveal; inform against,
+    accuse 
+tropus, tropi n: noun
+    trope, figure of speech, figurative use of word; song, manner of
+    singing (L + S)
+ramus, rami m : noun
+    branch, bough
+radix, radicis f : noun
+    root; base; square-root (math)
+capto, captare, captavi, captatus: verb (trans)
+    try/long/aim for, desire; entice, hunt legacy; try to
+    catch/grasp/seize/reach
+affectus, affectus m : noun
+    affection, passion, love; friendly feeling (Cas); goodwill; loved
+    ones (pl.); disposition; condition; state (of body/mind); feeling,
+    mood, emotion
+affectus, affecta, affectum : adj
+    endowed with, possessed of; minded; affected; impaired, weakened;
+    emotional
+orthographia, orthographiae f : noun
+    orthography, art of writing words correctly; elevation of a
+    building
+battuo, battuere, -, - : verb
+    pound, beat, hit, strike; fence (with swords)
+fusio, fundere, fudi, fusus : verb
+    pour, cast (metals); scatter, shed, rout
+effusio, effusionis f : noun
+    outpouring, shedding; profusion, lavishness, extravagence, excess
+valles, vallis f : noun
+    valley, vale, hollow
+vallo, vallare, vallavi, vallatus : verb
+    surround/fortify/furnish (camp, etc.) with a palisaded rampart
+plecto, plectere, plexi, plectus : verb
+    plait, twine
+plecto, plectere, -, - : verb
+    buffet, beat; punish
+medius, medii m : noun
+    mediator; one who stands in the middle, one who comes between
+palor, palari, palatus sum : verb (dep)
+    wander abroad, stray; scatter; wander aimlessly
+palatum, palati n : noun
+    palate; sense of taste
+lictor, lictoris m : noun
+    lictor, an attendant upon a magistrate
+aspis, aspidos/is f : noun
+    asp, venoumous snake of North Africa
+succurro, succurrere, succurri, succursus : verb
+    run to the aid of, help
+pardus, pardi m : noun
+    panther or leopard
+capo, caponis m : noun
+    capon, young cockerel?
+capus, capi m : noun
+    capon, young cockerel?
+illumino, illuminare, illuminavi, illuminatus : verb tr.
+    illuminate, give light to; light up; reveal/throw light on;
+    brighten (with color)
+pello, pellere, pepuli, pulsus : verb
+    beat; drive out; push; banish, strike, defeat, drive away, rout
+pellis, pellis f : noun
+    skin, hide; pelt
+perpendo, perpendere, perpendi, perpensus : verb
+    weigh carefully; assess carefully
+mespila, mespilae f : noun
+    medlar-tree (Pliny)
+mespilum, mespili n : noun
+    medlar tree (Pliny)
+essentia, essentiae f : noun
+    essence, substance, being, actuality, essential thing; existing
+    entity, whole
+desultorius, desultoria, desultorium : adj
+    of/belonging to a desultor (circus trick rider); desultory (L+S);
+    superficial 
+desulto, desultare, desultavi, desultatus : verb (intr)
+    lead down (into/onto)
+desultor, desultoris m : noun
+    vaulter/leaper (between horses), circus trick rider; fickle
+    person/lover (L+S)
+desilio, desilire, desilivi, desultus : verb (trans)
+    leap/jump down, dismount, alight; (chariot); jump headlog, venture
+    heedlessly 
+desilio, desilire, desilui, desultus : verb (trans)
+    leap/jump down, dismount, alight; (chariot); jump headlog, venture
+    heedlessly 
+reductus, reducta, reductum : adj
+    receding deeply, set back
+mustela, mustelae f : noun
+    weasel
+atomus, atomi f : noun
+    atom, ultimate component of matter, particle incapable of being
+    divided 
+atomus, atoma, atomum : adj
+    indivisible, atomic, that cannot be cut
+curvo, curvare, curvavi, curvatus : verb (trans)
+    bend/arch, make curved/bent; form a curve; make stoop/bow/yield;
+    influence 
+conjunx, conjugis c : noun
+    spouse/mate/consort; husband (male); wife/bride/fiancee/concubine
+    (female); yokemate
+conjunx, (gen.), conjugis : adj
+    yoked together; paired; linked as a pair
+cicatrix, cicatricis f : noun
+    scar/cicatrice; wound/bruise; emotional scar; prune mark on
+    plant/tool on work
+licet : conj
+    although, granted that (with subjunctive)
+ipse, ipsa, ipsum : pron
+    himself/herself/itself; the very/real/actual one; in person;
+    themselves (pl.)
+tignum, tigni n : noun
+    tree trunk, log, stick, post, beam; piece of timber; building
+    materials 
+incontinens, (gen.), incontinentis : adj
+    intemperate
+contineo, continere, continui, contentus : verb (trans)
+    secure, maintain, sustain; fasten/hold in position; retain, keep
+    safe, preserve, hinder, contain/shut in/confine; stay;
+    restrain/hold back; comprise/form basis; keep/hold/hang
+    together/fast; surround, enclose, contain, limit; concentrate
+continens, continentis f : noun
+    mainland; continent; forming part of a continuous mass
+continens, continentis n : noun
+    essential point, central argument, hinge, basis; suburbs (pl.),
+    (outside walls)
+continens, continentis (gen.) : adj
+    bordering, adjacent, contiguous, next; immediately, without delay
+    (with in/ex); temperate, moderate, not indulging in excess;
+    restrained, exhibiting restraint; close (in time); linked;
+    continuous, unbroken, uninterrupted; homogeneous
+prologus, prologi m : noun
+    prologue
+sententiosus, sententiosa, sententiosum : adj
+    pithy, sententious
+fetus, fetus m : noun
+    fetus; offspring, young
+fetus, feta, fetum : adj
+    fertile; pregnant with; full of; having newly brought forth
+annum, annui n : noun
+    yearly payment (usu. pl.); annual stipend, pension, annuity (L+S)
+obstetrix, obstetricis f : noun
+    midwife
+obsto, obstare, obstiti, - : verb
+    oppose, hinder (with dative)
+obsisto, obsistere, obstiti, obstitus : verb
+    oppose, resist; stand in the way; make a stand against; withstand
+inchoo, inchoare, inchoavi, inchoatus : verb
+    begin/start (work); set going, establish; draft/sketch/outline;
+    enter upon
+chorda, chordae f : noun
+    tripe; catgut, musical instrument (string); rope/cord (binding
+    slave) (L+S)
+chordus, chorda, chordum : adj
+    late-born/produced out of/late in season; second (crop of hay),
+    aftermath 
+columna, columnae f : noun
+    column/pillar (building/monument/pedestal/waterclock), post/prop;
+    portico (pl.), stanchion (press/ballista); water-spout; pillar of
+    fire; penis (rude)
+obsequor, obsequi, obsecutus sum : verb (dep)
+    yield to; humor
+jejunus, -a, -um jejunior -or -us, jejunissimus -a -um : adj
+    fasting, abstinent, hungry; dry, barren, unproductive; scanty,
+    meager
+venor, venari, venatus sum : verb (dep)
+    hunt
+fastidiosus, fastidiosa, fastidiosum : adj
+    squeamish; exacting; disdainful; nauseating
+supercilium, supercili(i) n : noun
+    eyebrow; frown; arrogance
+proclivis, procliva, proclivum : adj
+    inclined forward, sloping downwards; inclined, ready
+proclivis, proclivis, proclive : adj
+    sloping down; downward; prone (to); easy
+capital, capitalis n : noun
+    capital crime/punishment (loss of life or civil rights); priestess
+    headband 
+capitalis, capitale, capitalior -or -us, capitalissmus -a -um : adj
+    of/belonging to head/life; deadly, mortal; dangerous; excellent,
+    first-rate
+caput, capitis n : noun
+    head; person; life; leader;	top; source/mouth (river); capital
+    (punishment); heading; chapter, principal division [~ super
+    pedibus => head over heels]
+bractea, bracteae f : noun
+    gold leaf/foil, thin sheet of metal (esp. gold)/other material;
+    veneer; show

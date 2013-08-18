@@ -37,7 +37,7 @@ class WordSource(object):
 
 def verb():
     """Calculate a random verb declension."""
-    return random.randrange(6)
+    return [random.randrange(2), random.randrange(6)]
 
 
 def noun():
@@ -48,6 +48,21 @@ def noun():
 def noun3():
     """Calculate a random third noun declension."""
     return [random.randrange(3)] + noun()
+
+
+def adj():
+    """Calculate a random 1st and 2nd adjective declension."""
+    return [random.randrange(3), random.randrange(6), random.randrange(2)]
+
+
+def adj31():
+    """Calculate a random 3rd adjective declension (one or two endings)."""
+    return [random.randrange(2), random.randrange(6), random.randrange(2)]
+
+
+def adj33():
+    """Calculate a random 3rd adjective declension (two endings)."""
+    return [random.randrange(3), random.randrange(6), random.randrange(2)]
 
 
 if __name__ == '__main__':
