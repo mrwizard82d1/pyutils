@@ -1528,7 +1528,8 @@ explano, explanare, explanavi, explanatus : verb
 percipio, percipere, percepi, perceptus : verb
     secure, gain; perceive
 indignor, indignare, -ari, -atus sum : verb
-    deem unworthy
+    deem unworthy, scorn, regard with indignation, resent, be
+    indignant 
 facio, facere, feci, factus tr : verb
     make/build/construct/create
 conficio, conficere, confeci, -ctus tr : verb
@@ -1648,7 +1649,7 @@ timeo, timere, timui, - : verb
 nascor, nasci, natus sum dep : verb
     be produced spontaneously
 rapio, rapere, rapui, raptus : verb
-    drag off; snatch; destroy; seize
+    drag off; snatch; destroy; seize; carry off; pillage; hurry
 confabulor, -ari, -atus sum dep : verb
     converse, talk together;
 fabulor, -are, -avi, atus intr : verb
@@ -1781,9 +1782,9 @@ diverto, divere, -i, diversus : verb
     separate; divert, turn away/in
 vitupero, vituperare, -avi, -atus : verb
     find fault with, blame, reproach
-scio, scire, scivi(ii), scitus tr : verb
+scio, scire, scivi(ii), scitus : verb (trans)
     know, understand
-nosco, noscere, novi, notus tr : verb
+nosco, noscere, novi, notus : verb (trans)
     get to know; learn, find out
 nescio, -ire, -ivi, -itus : verb
     not know (how); be ignorant/unfamiliar
@@ -2288,15 +2289,15 @@ consummo, consummare, -avi, -atus : verb
     add/reckon/total/sum/make up
 disparo, disparare, -avi, -atus : verb
     separate, divide
-imbibo, imbibere, imbibi, imbitus tr : verb
+imbibo, imbibere, imbibi, imbitus : verb (trans)
     drink in, imbibe; assimilate
-surripio, surripere, -ui, surreptus tr : verb
+surripio, surripere, -ui, surreptus : verb (trans)
     take away secretly; steal; filch
 repo, repere, repsi, reptus : verb
     creep, crawl
 queror, queri, questus sum dep : verb
     complain; protest, grumble, gripe
-mensuro, mensurare, mensuravi, mensuratus tr : verb
+mensuro, mensurare, mensuravi, mensuratus : verb (trans)
     measure; estimate
 metior, metiri, mensus sum dep : verb
     measure, estimate; distribute, mete
@@ -2387,7 +2388,7 @@ dexter, dextra, -um : adj.
 siccus, sicca, siccum : adj.
     dry
 internecinus, internecina, internecinum : adj.
-    to the death
+    murderous, deadly; to the death
 celer, celeris, -e : adj.
     swift, quick, rapid
 vacuus, vacua, vacuum : adj.
@@ -2448,8 +2449,9 @@ evitabilis, evitabiles : adj.
     avoidable
 nugatorius, -a, -um : adj.
     trifling, worthless, futile, paltry
-mollis, molle : adj.
-    soft (cushion/grass); flexible/supple
+mollis, mollis, molle : adj.
+    soft (cushion/grass); flexible/supple; calm; gentle, pliant,
+    tender; smooth; mild, weak; effeminate 
 porcinus, -a, -um : adj.
     of a swine or hog
 politicus, -a, -um : adj.
@@ -2760,7 +2762,7 @@ peregrinus, peregrini c : adj.
 flagitiosus, -a, -um : adj.
     disgraceful, shameful; infamous, scandalous
 dignus, -a, -um : adj.
-    appropriate/suitable; worthy, deserving
+    appropriate/suitable; worthy, deserving, meriting
 augustus, -a, -um : adj.
     sacred, venerable; majestic, august, solemn
 pelagicus (only neuter?) : adj.
@@ -3329,3 +3331,72 @@ caput, capitis n : noun
 bractea, bracteae f : noun
     gold leaf/foil, thin sheet of metal (esp. gold)/other material;
     veneer; show
+praesagium, praesagi(i) n : noun
+    sense of foreboding; prognostication
+praesagio, praesagire, praesigivi, - : verb
+    have presentment (of); portend
+Sardonius, Sardonia, Sardonium : adj
+    Sardinian [~ herba => kind of acrid buttercup/poisonous plant,
+    crowfoot (L+S)] 
+cantus, canti m : noun
+    tire, iron ring around a carriage wheel; wheel
+veredus, veredi m : noun
+    swift horse, hunter
+artio, artire, artivi, - : verb (trans)
+    insert tightly, wedge; be a tight fit, crowd
+ars, artis f : noun
+    skill/craft/art; trick, wile; science, knowledge; method, way;
+    character (pl.)
+neco, necare, necavi, necatus : verb (trans)
+    kill/murder; put to death; suppress, destroy; kill (plant);
+    quench/drown (fire)
+communa, communae f : noun
+    common usage
+communis, communis, commune : adj
+    common/joint/public; general/universal; ordinary; sociable,
+    courteous; related; neutral, impartial (Mars); applicable on
+    either side; same form for two cases
+commune, communis n : noun
+    joint/common/public property/rights; publi; public place/interests
+    (pl.); common feature, characteristic, general rule/terms;
+    general; common lot/remedy
+communio, communire, communivi, communitus : verb (trans)
+    fortify strongly, entrench, barricade; strengthen, secure,
+    reinforce 
+bassus, bassa, bassum : adj
+    low, base; base (Cal); [follis basus => baseball]
+destruo, destruere, destruxi, destructus : v (trans)
+    demolish, pull/tear down; destroy, ruin; demolish/refute
+    (arguments/evidence) 
+struo, struere, struxi, structus : verb
+    build, construct
+incredulus, incredula, incredulum : adj
+    unbelieving, disbelieving, incredulous; disobedient
+credulus, credula, credulum : adj
+    credulous, trusting, gullible; prone to believe/trust; full of
+    confidence (L+S)
+credo, credere, credidi, cterditus : verb
+    trust, entrust; commit/consign; believe, trust in, rely on,
+    confide; suppose; lend (money) to, make loans/give credit;
+    believe/think/accept as true/be sure
+incredibilis, incredibilis, incredibile : adj
+    incredible; extraordinary
+credibilis, credibilis, credibile : adj
+    credible/trustworthy/believable/plausible/convincing/likely/probably/
+    conceivable
+surreptitius, surreptitia, surreptitium : adj
+    stolen; surreptitious; concealde; (surrepticious);
+acquiesco, acquiescere, acquievi, acquietus : verb (intrans)
+    lie with (w/cum), rest/relax; repose (death);
+    acquiesce/assent/sumbit; subside
+quiesco, quiescere, quievi, quietus : verb
+    rest, keep quiet/calm, be at peace/rest; be inactive/neutral;
+    permit; sleep
+mollio, mollire, mollivi, mollitus : verb
+    soften, migitate, make easier; civilize, tame, enfeeble
+prae : adv
+    before, in front of; forward
+prae : prep (abl)
+    before, in front; in view of, because of
+doceo, docere, docui, docutus : verb
+    teach, show, point out
