@@ -13,9 +13,21 @@ class WordSource(object):
     def __init__(self):
         lines = [l.rstrip('\n') for l
                  in open('latin_words.txt', 'rt').readlines()]
-        latin_terms = itertools.islice(lines, 0, len(lines), 2)
-        english_definitions = itertools.islice(lines,
-                                               1, len(lines), 2)
+        latin_terms = []
+        english_definitions = []
+        line_no = 0
+        while line_no < len(lines):
+            if ':' in lines[line_no]:
+                latin_terms.append(lines[line_no])
+                line_no += 1
+            else:
+                english_definition = lines[line_no]
+                line_no += 1
+                while line_no < len(lines) and ':' not in lines[line_no]:
+                    english_definition += lines[line_no]
+                    line_no += 1
+                english_definitions.append(' ' + english_definition)
+
         self.latin_english_dict = \
             dict(list(itertools.izip(latin_terms, english_definitions)))
         self.latin_words = self.latin_english_dict.keys()
