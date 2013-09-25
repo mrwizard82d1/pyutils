@@ -161,7 +161,8 @@ liber, liberi m : noun
 locus, loci m : noun
     place
 modus, modi m : noun
-    way; measure
+    manner, mode, way, method; rule, rhythm, beat, measure, size;
+    bound, limit
 mundus, mundi m : noun
     world
 nodus, nodi m : noun
@@ -911,7 +912,7 @@ ver, veris n : noun
 senex, senis m : noun
     old man
 frux, frugis f : noun
-    crops (pl.), fruits, produce
+    crops (pl.), fruits, produce, legumes; honest men
 carcer, carceris m : noun
     prison, jail; jailbird
 faseolus, faseoli m : noun
@@ -1181,7 +1182,11 @@ vestis, vestis f : noun
 patria, patriae f : noun
     native land; home, native city; one's country
 corius, cori(i) m : noun
-    skin/leather/hide; peel/rind/shell
+    skin/leather/hide; peel/rind/shell/outer cover; layer/coating;
+    thong/strap/wip
+corium, cori(i) n : noun
+    skin/leather/hide; peel/rind/shell/outer cover; layer/coating;
+    thong/strap/wip
 coris, coris f : noun
     plant; (species of hypericon); its seed
 matricula, matriculae f : noun
@@ -1337,8 +1342,9 @@ cado, cadere, cecidi, casus intr : verb
     fall
 caedo, caedere, cecidi, caesus : verb
     kill, cut
-capio, capere, cepi, captus tr : verb
-    take, capture
+capio, capere, cepi, captus : verb tr
+    take hold, seize; grasp; take bribe; arrest/capture; put on;
+    occupy; captivate
 clamo, clamare, clamavi, clamatus : verb
     shout, exclaim
 concido, concidere, concidi, concisus tr : verb
@@ -1464,7 +1470,7 @@ caleo, calere, calvi, - intr : verb
 trado, tradere, tradidi, traditus : verb
     hand over
 postulo, postulare, postulavi, postulatus : verb
-    require, demand
+    demand, claim; require; ask/pray for
 sibilo, sibilare, sibilavi, sibilatus : verb
     whistle; hiss; hiss at
 mordo, mordere, mormordi, morsus : verb
@@ -1542,8 +1548,8 @@ incido, incidere, incidi, incisus : verb
     fall in
 circumeo, circumire, circumivi(ii), -itus : verb
     go around
-circumsto, -are, -eti, -atus : verb
-    stand/gather/crowd around
+circumsto, circumstare, -eti, -atus : verb
+    stand/gather/crowd around, surround, beset; be on either side
 luceo, lucere, luxi, - : verb
     shine; emit light (heavenly body); dawn
 provenio, -ire, -i, -tus : verb
@@ -1563,7 +1569,7 @@ compungo, -ere, compunxi, compunctus tr : verb
 edo, edere, edi, esus tr : verb
     eat/consume/devour
 verto, vertere, verti, versus : verb
-    turn, turn around; change, alter
+    turn, turn around; change, alter; overthrow, destroy
 tempero, temperare, temperavi, temperatus : verb
     combine, blend, temper
 distempero, distemperare, -avi, -atus : verb
@@ -1595,7 +1601,8 @@ oppugno, oppugnare, oppgnavi, oppugnatus : verb
 procedo, procedere, processi, processus : verb
     proceed; advance; appear
 abscondo, abscondere, abscondi, -itus : verb
-    hide away, conceal, secrete
+    hide, conceal, secrets, "shelter"; leave behind; bury, engulf,
+    swallow up; keep
 condo, -ere, condidi, conditus tr : verb
     put/insert into; put away
 exstirpo, exstirpare, -avi, -atus tr : verb
@@ -1606,8 +1613,8 @@ advenio, -nire, -ni, -utus intr : verb
     come to, arrive; arrive at
 praescio, praescire, -ivi, -itus tr : verb
     find out/learn beforehand
-invetero, invetare, -avi, -atus : verb
-    make old, give age to; grow old
+invetero, inveterare, -avi, -atus : verb
+    make old, give age to; grow old; become rooted
 cuncto, cunctare, cunctavi, -atus : verb
     delay, impede, hold up; hesitate
 sarcio, -ire, sarci, sartus : verb
@@ -1705,7 +1712,7 @@ sapio, sapere, sapivi, - : verb
 augeo, augere, auxi, auctus tr : verb
     increase, enlarge, augment; spread;
 turbo, turbare, turbavi, turbatus : verb
-    disturb, throw into confusion
+    disturb, agitate, throw into confusion
 video, videre, vidi, visus : verb
     see, look at; observe, understand; consider
 audio, audire, audivi, auditus : verb
@@ -1755,7 +1762,8 @@ porto, portare, portavi, portatus : verb
 amo, amare, amavi, amatus : verb
     love, like
 canto, cantare, cantavi, cantatus : verb
-    sing
+    sing; play (roles/music); recite; praise, celebrate; forewarn;
+    enchant, bewitch
 habeo, habere, habui, habitus : verb
     have
 invenio, invenire, inveni, inventus : verb
@@ -1831,7 +1839,8 @@ confido, confidere, confisus sum semidep : verb
 specio, specere, spexi, - : verb
     look at, see
 undo, undare, undavi, undatus intr : verb
-    surge/flood/rise in waves
+    surge/flood/rise in waves; gush/well up; run, stream; billow;
+    undulate; waver
 abominor, abominari, abominatus sum dep : verb
     (seek to) avert (omen);
 emereo, emerere, emerui, emeritus : verb
@@ -2021,7 +2030,7 @@ scruto, scrutare, -avi, -atus tr : verb
     search/probe/examine carefully
 scrtor, strutari, -atus sum dep : verb
     search/probe/examine carefully
-scindo, scindere, scicidi, scisus tr : verb
+scindo, scindere, scicidi, scisus : verb trans.
     tear, rend, cut to pieces
 praescindo, praescindere, -cidi, -isus : verb
     cut off in front
@@ -2175,7 +2184,7 @@ sero, serere, serui, sertus : verb
 sero, serere, sevi, satus : verb
     sow, plant; strew, scatter
 perturbo, perturbare, -avi, -atus : verb
-    confuse, throw into confusion
+    confuse, throw into confusion; disturb, perturb, trouble; alarm 
 alesco, alescere, -, - intr : verb
     be nourished; grow up; increase
 fulgeo, fulgere, fulsi, - : verb
@@ -2224,7 +2233,8 @@ consolo, consolare, -avi, -atus tr : verb
 averro, averrere, averri, aversus : verb
     sweep/brush away, take away
 averto, avertere, averti, aversus : verb
-    turn away from/aside, divert
+    turn away from/aside, divert, rout; disturb; withdraw; steal,
+    misappropriate 
 dissolvo, dissolvere, -vi, -utus : verb
     unloose, dissolve, destroy
 orior, oriri, ortus sum dep : verb
@@ -2486,8 +2496,9 @@ adventicius, -a, -um : adj.
     foreign; coming from abroad/without, external
 licentiosus, -a, -um : adj.
     unrestrained, unbridled; wanton, licentious; free
-vetus, veteris : adj.
-    old, aged, ancient; former; veteran
+vetus, veteris (gen.) : adj.
+    old, aged, ancient; former; veteran, experienced; long standing,
+    chronic 
 inveteratus, -a, -um : adj.
     old, inveterate, of long standing, hardened by age
 contumax, contumacis : adj.
@@ -2584,7 +2595,7 @@ georgicus, georgica, georgicum : adj.
 longus, longa, -um : adj.
     long
 malus, mala, -um : adj.
-    bad
+    bad, evil, wicked; ugly; unlucky
 multus, multa, -um : adj.
     much, many
 novus, nova, -um : adj.
@@ -2718,7 +2729,8 @@ impervius, -a, -um : adj.
 pervius, -a, -um : adj.
     passable, traversable; penetrable
 clarus, -a, -um : adj.
-    clear, bright, gleaming
+    clear, bright, gleaming; loud, distinct; evident, plain;
+    illustrious, famous
 plenus, -a, -um : adj.
     full, plump; satisfied
 meretricius, -a, -um : adj.
@@ -3049,8 +3061,12 @@ in (+ acc) : prep.
     into
 ad (+ acc) : prep.
     to, toward
+circum : adv.
+    about, around; round about, near; in a circle; in attendance; on
+    both sides
 circum (+ acc) : prep.
-    around
+    around, about, among, near (space/time), in neighborhood of; in
+    circle around
 supra (+ acc): prep.
     above
 (acc) : prep.
@@ -3400,3 +3416,170 @@ prae : prep (abl)
     before, in front; in view of, because of
 doceo, docere, docui, docutus : verb
     teach, show, point out
+absconsus, absconsa, absconsum : adj
+    hidden, secret, concealed, unknown
+offero, offerre, obtuli, oblatus : verb
+    offer; present; cause; bestow
+consterno, consternare, -avi, -atus : verb tr.
+    confound/shock/confuse/perplex/dismay; terrify/alarm/frighten;
+    drive; frantic; overcome; stretch/lay out upon the ground; excite
+    to sedition/revolt/mutiny
+consterno, consternere, -avi, -atus : verb tr.
+    strew/cover/spread (rugs); cover/lay/pave/line; bring down, lay
+    low; calm (sea)
+imperturbabilis, -is, -e : adj
+    undisturbable; cannot be disturbed
+lardum, lardi n : noun
+    lard, fat; bacon
+laridum, laridi n : noun
+    bacon
+sermo, sermonis m : noun
+    conversation, discussion; rumor; diction; speech; talk; the word
+catalepsis, catalepsis f : noun
+    catalepsy, seizure, sudden attack of sickness
+obstaculum, obstaculi n : noun
+    obstacle, obstruction; that which stands in the way
+sto, stare, steti, status : verb
+    stand, stand still, stand firm; remain, rest
+sisto, sistere, stiti, status : verb
+    stop, check; cause to stand; set up
+praedo, praedare, -avi, -atus : verb (trans)
+    pillage, despoil, plunder; rob/ravish/take; acquire loot
+    (robbery/war); catch
+praedor, praedari, praedatus sum : verb (dep)
+    acquire loot (by robbery/war/depredation); obtain food by
+    hunting/preying; pillage, despoil; plunder, loot; take as
+    prey/catch 
+praedator, praedatoris m : noun
+    plunderer, pillager; hunter
+praeda, praedae f : noun
+    booty, loot, spoils, plunder, prey
+noster, nostri m : noun
+    our men (pl.)
+noster, nostra, nostrum : adj
+    our
+incongruus, incongrua, incongruum : adj
+    inconsistent; incongruous; unsuitable
+congruus, congrua, congruum : adj
+    agreeing, according; fit, suitable (L+S); harmonious
+congruo, congruere, congrui, - : verb intrans.
+    agree, coincide, correspond, be consistent; be suited; be adapted;
+    fit in; unite, combine, come together; blend, harmonize, act
+    together; be congenial
+querela, querelae f : noun
+    complaint, grievance; illness; difference of opinion; lament;
+    blame (Plater)
+querella, querellae f : noun
+    complaint, grievance; illness; difference of opinion; lament;
+    blame (Plater)
+queror, queri, questus sum : verb dep.
+    complain; protest, grumble, gripe; make formal complaint in court
+    of law
+quadrus, quadra, quadrum : adj
+    square
+circumspectus, circumspectus m : noun
+    survey/looking round/spying; visual examination; commanding view;
+    contemplation 
+circumspectus, circumspecta, -um : adj
+    well considered, weighed with care, prudent; guarded/circumspect;
+    cautious/wary; worthy of consideration, respected; distinguished
+circumspicio, circumspicere, circumspexi, circumspectus : verb
+    look around/over/for, survey; inspect; search for/seek;
+    examine/review; ponder
+circus, circi m : noun (Pliny)
+    race course; circus in Rome, celebration of games; circle; orbit
+circos, circi m : noun
+    precious stone
+circumstantia, circumstantiae f : noun
+    encircling position/troop; closing of fluid round passing object;
+    circumstance 
+circumsisto, circumsistere, circumstiti, circumstatus : verb trans
+    stand/gather/crowd/take a stand around; surround, beset; be on
+    either side
+spero, sperare, speravi, speratus : verb
+    hope for; trust; look forward to; hope
+discrimino, discriminare, discriminavi, discriminatus : verb
+    divide up, separate
+discrimen, discriminis n : noun
+    crisis, separating line, division; distinction, difference
+capsa, capsae f : noun
+    cylindrical case (for books), bookcase; receptacle for things,
+    box, satchel
+capsum, capsi n : noun
+    church nave
+depraedo, depraedare, depraedavi, depraedatus : verb tr
+    exhaust by plundering/pillaging; plunder, pillage (L+S)
+depraedo, depraedari, depraedatus sum : verb dep
+    exhaust by plundering/pillaging; plunder, pillage (L+S)
+impeto, impetere, impetivi, impetitus : verb trans
+    attack, assail; rush upon (L+S); accuse
+vicissitudo, vicissitudinis f : noun
+    change, vicissitude
+vicissim : adv
+    in turn, again
+vitio, vitiare, vitavi, vitiatus : verb
+    make faulty, spoil, damage; vitiate
+transgredior, transgredi, transgressus sum : verb dep
+    cross, go/move/travel over/across; go to other side; change
+    allegiance/policy
+gradior, gradi, gressus sum : verb dep
+    walk, step, take steps, go, advance
+obvio, obviare, obviari, obviatus : verb dat
+    meet (with dat.)
+expostulo, expostulare, expostulavi, expostulatus : verb
+    demand, call for, remonstrate, complain about
+obstino, obstinare, obstinavi, obstiatus : verb
+    be determined on
+modicus, modici m : noun
+    moderate; temperate, restrained; small (bee)
+modicum, modici n : noun
+    short/small time; short distance, little way; little, small amount
+assiduus, assidui m : noun
+    tribute/tax payer, rich person; first-rate person/writer
+assiduus, assidua, -um : adj
+    constant, regular; unremitting, incessant; ordinary; landowning,
+    first-class 
+assideo, assidere, assedi, assessus : verb
+    sit by/in council/as assessor; watch over; camp near, beseige;
+    resemble (with dat.)
+assideo, assidere, assedi, - : verb intrans.
+    sit down, take a seat; perch, alight, settle; sit by/near (to)
+    (with dat.)
+tracto, tractare, tractavi, tarctatus : verb
+    draw, haul, pull, drag about; handle, manage, treat, discuss
+crimino, criminare, criminavi, criminatus : verb trans.
+    accuse, denounce; charge (with); allege with accusation; make
+    accusation
+criminor, criminari, criminatus sum : verb dep.
+    accuse, denounce; charge (with); allege with accusation; make
+    accusation
+denomino, denominare, denominavi, denominatus : verb trans.
+    denominate, designate; give a name to (usu. source
+    expressed/implied)
+nomino, nominare, nominari, nominatus : verb
+    name, call
+redundo, redundare, redundavi, redundatus : verb
+    overflow; be too numerous
+trudero, trudere, trusi, trusus : verb
+    thrust, push, shove; drive, force; drive on
+larix, laricis f : noun
+    larch tree
+malitia, malitiae f : noun
+    ill will, malice; wickedness; vice; fault
+malus, mali m : noun
+    mast; beam; tall pole, upright pole; standard, prop, staff
+malus, mali f : noun
+    apple tree
+evinco, evincere, evici, evictus : verb
+    overcome, conquer, subdue, overwhelm, defeat utterly; prevail,
+    bring to pass
+evincio, evincere, evinxi, evinctus : verb
+    bind, bind up/around; wind around; wreathe round
+pertinax, (gen.), pertinacis : adj.
+    perservering, obstinate; pertinacious
+tenax, tenacis (gen.) : adj.
+    holding fast, clinging; tenacious; retentive;
+    close-fisted/tight/niggardly; restraining; (fetters/embrace);
+    steadfast, persistent; obstinate, stubborn
+inveterasco, inveterascere, inveteravi, - : verb
+    grow old; become established/customary
