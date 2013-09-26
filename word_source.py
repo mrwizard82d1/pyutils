@@ -2,17 +2,21 @@
 
 
 """Defines a source of words to be used in testing."""
+
+import argparse
 import glob
 import itertools
+import os
 import random
 
 
 class WordSource(object):
     """Models a source of words."""
 
-    def __init__(self):
+    def __init__(self, src_dir='.'):
+        source_file_name = os.path.join(src_dir, 'latin_words.txt')
         lines = [l.rstrip('\n') for l
-                 in open('latin_words.txt', 'rt').readlines()]
+                 in open(source_file_name, 'rt').readlines()]
         latin_terms = []
         english_definitions = []
         line_no = 0
@@ -24,7 +28,7 @@ class WordSource(object):
                 english_definition = lines[line_no]
                 line_no += 1
                 while line_no < len(lines) and ':' not in lines[line_no]:
-                    english_definition += lines[line_no]
+                    english_definition += ' ' + lines[line_no].lstrip()
                     line_no += 1
                 english_definitions.append(' ' + english_definition)
 
@@ -78,7 +82,16 @@ def adj33():
 
 
 if __name__ == '__main__':
-    ws = WordSource()
+    parser = argparse.ArgumentParser(
+        description='Generate random words (for testing).',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('src_dir', nargs='?', default='.',
+                        help=('Source directory (to search for'
+                              ' latin_words.txt files)'))
+                        
+
+    args = parser.parse_args()
+    ws = WordSource(args.src_dir)
     i = 0
     for latin, english in ws:
         i += 1
