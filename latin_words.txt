@@ -1,4 +1,4 @@
-calamitas, calamitatis f : noun
+>>calamitas, calamitatis f : noun
     calamity
 causa, causae f : noun
     cause
@@ -153,7 +153,8 @@ vir, viri m : noun
 animus, animi m : noun
     mind; intellect; soul; feelings; heart; spirit
 fundus, fundi m : noun
-    farm
+    farm; piece of land, estate; bottom, lowest part; foundation; an
+    authority 
 lectus, lecti m : noun
     bed
 liber, liberi m : noun
@@ -1045,6 +1046,8 @@ umbilicus, umbilici m : noun
     navel, middle, center
 nomenclator, nomenclatoris m : noun
     one who addresses person by name
+nomenclatura, nomenclaturae f : noun
+    assigning of names to things, nomenclature; mentioning things by name
 sidus, sideris n : noun
     star; constellation; tempest
 omne, omnis n : noun
@@ -1203,6 +1206,10 @@ lapis, lapis f : noun
     stone; milestone; jewel
 lapidarius, lapidarii : noun
     stone-cutter
+lapido, lapidare, lapidavi, lapidatus : verb
+    throw stones at; stone; 
+lapidaris, lapidaris, lapidare : adj.
+    of store
 aedis, aedis f : noun
     temple, shrine; tomb; apartment, room; house (pl.)
 decem : noun
@@ -1447,8 +1454,16 @@ hortor, hortari, hortatus sum dep : verb
     encourage; cheer; incite; urge
 resilio, resilire, resilui, - : verb
     jump back, recoil
+salio, salire, salivi, salitus : verb trans.
+    salt, salt down, preserve with salt; sprinkle before sacrifice
+salio, salire, salivi, saltus : verb
+    leap, jump; move suddenly/spasmodically (part of body under
+    stress), twitch; spurt, discharge, be ejected under force
+    (water/fluid); mount/cover (by stud)
 salio, salire, salui/ii, salitus : verb
-    jump
+    leap, jump; move suddenly/spasmodically (part of body under
+    stress), twitch; spurt, discharge, be ejected under force
+    (water/fluid); mount/cover (by stud)
 incumbo, incumbere, incumbi, incumbitus : verb
     lie down on
 simulo, simulare, simulavi, simulatus : verb
@@ -1523,6 +1538,8 @@ hiberno, hibernare, hibernavi, hibernatus : verb
     pass the winter
 rideo, ridere, risi, risus : verb
     laugh at (dat.), laugh; ridicule
+risibilis, risibilis, risibile : adj.
+    that can laugh; risible
 derideo, deridere, derisi, derisus tr : verb
     mock, deride, laugh at
 odi, odisse, osus perfdef : verb
@@ -2104,8 +2121,14 @@ fulcio, fulcire, fulsi, fultus : verb
     prop up; support
 stipulor, stipulari, stipulatus sum : verb
     extract solemn promise
-delecto, delectare, -avi, -atus tr : verb
-    delight, please, amuse
+delecto, delectare, -avi, -atus : verb trans.
+    delight, please, amuse, fascinate; charm, lure, entice; be a
+    source of delight; (PASS) be delighted/glad, take pleasure; (w/
+    INF) enjoy (being/doing)
+delector, delectari, delectatus sum : verb dep.
+    delight, please, amuse, fascinate; charm, lure, entice; be a
+    source of delight; (PASS) be delighted/glad, take pleasure; (w/
+    INF) enjoy (being/doing)
 instauro, instaurare, -avi, atus : verb
     renew, repeat, restore
 vestio, vestire, vestivi, vestitus : verb
@@ -2746,7 +2769,12 @@ pudicus, -a, -um : adj.
 pudens, pudentis (gen.) : adj.
     shameful; bashful, modes, shy
 rotundus, -a, -um : adj.
-    round, circular; wheel-like
+    round, circular; wheel-like; spherical, globular; smooth,
+    finished; facile
+rota, rotae f : noun
+    wheel (rotate)
+roto, rotare, rotavi, rotatus : verb
+    whirl round; revolve, rotate
 felix, felicis (gen.), : adj.
     happy; blessed; fertile; favorable
 blandus, -a , -um : adj.
@@ -3583,3 +3611,106 @@ tenax, tenacis (gen.) : adj.
     steadfast, persistent; obstinate, stubborn
 inveterasco, inveterascere, inveteravi, - : verb
     grow old; become established/customary
+occuro, occurare, occuravi, occuratus : verb
+    occur, come about; happen
+stultus, stulti m : noun
+    fool
+stultus, stulta, stultum : adj.
+    foolish, stupid
+diligo, diligere, dilexi, dilectus : verb
+    select, pick, single out; love, value, esteem; approve, aspire to,
+    appreciate
+oestrus, oestri m : noun
+    gad-fly
+evanesco, evanescere, evanui, - : verb
+    vanish/disappear; pass/fade/die (away/out); lapse; become
+    weak/void/forgotten 
+vanus, vana, vanum : adj.
+    empty, vain; false, untrustworthy
+spectaculum, spectaculi n : noun
+    show, spectacle; spectators' seats (pl.)
+specio, specere, spexi, - : verb
+    look at, see
+cupula, cupulae f : noun
+    small barrel/cask/tub; niche in a columbarium (for ashes); small
+    burial vault; small crooked handle
+cupa, cupae f : noun
+    bar of an oil press (axle for millstone); axle; crooked handle
+    (L+S); barrel, cask, vat, tub (esp. for wine); niche in a
+    columbarium (for ashes); dancing-girl; female tavern-keeper and
+    castanet-dancer (L+S); femail vintner
+cornix, cornicis f : noun
+    crow (or related bird); (example of longevity); (insulting for old
+    woman) 
+corvus, corvi m : noun
+    raven; cormorant (w/ aquaticus); kind of sea fish; constellation
+    Corvus/Raven; military engineer; grappling iron; surgical
+    instrument; fellator (rude) (L+S)
+latus, lata, -um : adj.
+    wide, broad; spacious, extensive
+latus, lateris n : noun
+    side; flank
+iris, iris m : noun
+    hedgehog
+Iris, Iris f : noun
+    Iris (messenger of the gods, goddess of the rainbow); rainbow
+iris, iris f : noun
+    iris (plant); preparation of iris root; iridescent stone
+Iris, Iridis f : noun
+    Iris (messenger of the gods, goddess of the rainbow); rainbow
+iris, iridis f : noun
+    iris (plant); preparation of the iris root; iridescent stone
+decrepitus, decrepita, decrepitum : adj.
+    worn out (with age), feeble, decrepit; infirm; very old (L+S);
+    (noisless)
+tuberculum, tuberculi n : noun
+    small swelling/bump/protuberance/excrescence/tumor; boil (L+S);
+    pimple
+tuber, tuberis m : noun
+    exotic fruit; (azarole of oriental medlar); the bush (Crataegus
+    azarolus) 
+tuber, tuberis n : noun
+    tumor, protuberance, bump, excrescence; truffle; plant with
+    tuberous root 
+commensal, commensalis m : noun
+    table companion
+cordatus, cordata, -um : adj
+    prudent, wise; sensible, judicious; endowed with intelligence
+asperitas, asperitatis f : noun
+    roughness; severity; difficulty; harshness; shrillness, sharpness;
+    fierceness 
+asper, aspera, -um : adj
+    rude/unrefined; cruel/violent/savage/raging/drastic;
+    stern/severe/bitter; hard; rough/uneven/shaggy, coarse, harsh;
+    embossed/encrusted; (mint condition coins); sharp/pointed,
+    jagged/irregular, rugged/severe; sour, pungent, grating, keen
+asper, aspra, -um : adj
+    rough/uneven, coarse/harsh; sharp/pointed; rude; savage; pungent;
+    keen; bitter
+trepido, trepidare, trepidavi, trepidatus : verb
+    tremble, be afraid, waver
+trepidus, trepida, trepidum : adj.
+    nervous, jumpy, agitated; perisous, alerming, frightened; boiling,
+    foaming
+condignus, condigna, condignum : adj.
+    appropriate, worthy, befitting; wholly deserving, very worthy
+    (L+S)
+lascivia, lasciviae f : noun
+    playfulness; wantonness, lasciviousness
+salax, (gen.), salacis : adj.
+    lecherous/lustful; highly sexed, eager for sex, lascivious;
+    aphrodisiac; hot
+termino, terminare, terminavi, terminatus : verb
+    mark the boundaries of, form the boundaries of; restrict; conclude
+pacificus, pacifica, pacificum : adj
+    marking or tending to make peace
+augur, auguris c : noun
+    augur, one who interprets behaviour of birds; diviner, seer,
+    prophet, soothsayer
+immutabilis, immutabilis, immutabile : adj.
+    unchangeable/unalterable; (rarely) liable to be changed
+mutabilis, mutabilis, mutabile : adj.
+    changeable; inconstant
+hirnea, hirneae f : noun
+    jug; hernia/rupture; (esp. enlarged scrotum as a result of scrotal
+    hernia) 

@@ -16,3 +16,9 @@ prae sequor : idiom
     go on before
 absconsa lantern : idiom
     hidden (dark) lantern
+lapidat : idiom
+    it rains stones
+in gratiam : idiom
+    into favor
+ad frontem : idiom
+    to the face
