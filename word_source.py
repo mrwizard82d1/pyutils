@@ -53,12 +53,12 @@ class WordSource(object):
 
 def verb():
     """Calculate a random verb declension."""
-    return [random.randrange(2), random.randrange(6)]
+    return [random.randrange(3), random.randrange(6)]
 
 
 def noun():
     """Calculate a random (first or second) noun declension."""
-    return [random.randrange(6), random.randrange(2)]
+    return [random.randrange(5), random.randrange(2)]
 
 
 def noun3():
