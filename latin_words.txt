@@ -1,4 +1,4 @@
->>calamitas, calamitatis f : noun
+calamitas, calamitatis f : noun
     calamity
 causa, causae f : noun
     cause
@@ -2590,7 +2590,7 @@ perditum, perdita, -um : adj.
 ultimus, ultima, -um : adj.
     far, farther; farthest, latest; highest; greatest
 inferus, infera, -um : adj.
-    lesser; below, beneath, underneath; of hell
+    lesser; below, beneath, underneath; of hell; vile; lower, further down; lowes; last
 humanus, humana, -um : adj.
     human; kind; humane, civilized, refined
 silens, silentis : adj.
@@ -3714,3 +3714,7 @@ mutabilis, mutabilis, mutabile : adj.
 hirnea, hirneae f : noun
     jug; hernia/rupture; (esp. enlarged scrotum as a result of scrotal
     hernia) 
+seco, secare, secui, sectus : verb
+    cut, server; decide; divide in two/halve, split; slice/chop/cut up, carve; detach
+sano, sanare, sanavi, sanatus : verb
+    cure, heal; correct; quiet
