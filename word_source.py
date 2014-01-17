@@ -4,7 +4,6 @@
 """Defines a source of words to be used in testing."""
 
 import argparse
-import glob
 import itertools
 import os
 import random
@@ -88,7 +87,6 @@ if __name__ == '__main__':
     parser.add_argument('src_dir', nargs='?', default='.',
                         help=('Source directory (to search for'
                               ' latin_words.txt files)'))
-                        
 
     args = parser.parse_args()
     ws = WordSource(args.src_dir)
