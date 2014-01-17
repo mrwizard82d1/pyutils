@@ -11,6 +11,17 @@ import shutil
 __author__ = 'ljones'
 
 
+def print_rm_error_fn(is_verbose):
+
+    def print_rm_error(function, path, exception_info):
+        """Prints error information on attempted removal."""
+        if not is_verbose:
+            print('Error removing: {0}'.format(path))
+        else:
+            print('Error {0} removing {1} using {2}'.format(exception_info,
+                                                            path, function))
+    return print_rm_error
+
 def rm_directory_if(starting_at, included_in, excluded_by, is_verbose):
     """Remove directories in start included_in but not excluded_by"""
 
@@ -40,7 +51,7 @@ def rm_directory_if(starting_at, included_in, excluded_by, is_verbose):
             pathname = os.path.join(root, to_remove)
             if is_verbose:
                 print('Removing {0}.'.format(pathname))
-            shutil.rmtree(pathname)
+            shutil.rmtree(pathname, onerror=print_rm_error_fn(is_verbose))
 
         # Clean up the directories to be searched
         for to_remove in (all_to_remove | all_to_skip):
@@ -48,14 +59,15 @@ def rm_directory_if(starting_at, included_in, excluded_by, is_verbose):
 
 
 if __name__ == '__main__':
-    description = "Remove generated directories."
+    default_exclude = ['.hg', '.git']
+    description = 'Remove generated directories matching a pattern' \
+                  ' (skipping {0}).'.format(default_exclude)
     parser = argparse.ArgumentParser(description=description,
                                      formatter_class=
                                      argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--include', nargs='+', default=['bin', 'obj'],
                         help='Include pattern(s).')
-    parser.add_argument('-x', '--exclude', nargs='+',
-                        default=[r'\.hg', r'\.git'],
+    parser.add_argument('-x', '--exclude', nargs='+', default=[],
                         help='Exclude pattern(s).')
     parser.add_argument('-v', '--verbose', action='store_true',
                         default=False, help='Show verbose output.')
@@ -63,7 +75,9 @@ if __name__ == '__main__':
                         help='In directory')
     args = parser.parse_args()
     include_if = [re.compile(i) for i in args.include]
-    exclude_if = [re.compile(x) for x in args.exclude]
+    exclude_if = [re.compile(x) for x in args.exclude] + \
+                 [re.compile(default.replace('.', r'\.')) for default in
+                  default_exclude]
     for start in args.where:
         rm_directory_if(start, include_if, exclude_if, args.verbose)
 
