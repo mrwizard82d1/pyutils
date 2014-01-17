@@ -18,9 +18,6 @@ def rm_directory_if(starting_at, included_in, excluded_by, is_verbose):
         all_to_remove = set()
         all_to_skip = set()
         for directory_name in directory_names:
-            if is_verbose:
-                print('Examining {0}'.format(os.path.join(root,
-                                                          directory_name)))
             # if directory_name by itself is to be excluded
             if any([exclude.search(directory_name) for exclude in
                     excluded_by]):
@@ -57,10 +54,11 @@ if __name__ == '__main__':
                                      argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--include', nargs='+', default=['bin', 'obj'],
                         help='Include pattern(s).')
-    parser.add_argument('-x', '--exclude', nargs='+', default=[],
+    parser.add_argument('-x', '--exclude', nargs='+',
+                        default=[r'\.hg', r'\.git'],
                         help='Exclude pattern(s).')
-    parser.add_argument('-v', '--verbose', default=False, \
-                        help='Show verbose output.')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        default=False, help='Show verbose output.')
     parser.add_argument('where', nargs='*', default='.',
                         help='In directory')
     args = parser.parse_args()
