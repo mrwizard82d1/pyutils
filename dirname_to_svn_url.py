@@ -16,14 +16,14 @@ def dirname_to_svn_url(dirname):
 
 
 if __name__ == '__main__':
-    usage = """%prog [options] dirname
+    usage = """%prog [options] dir_name
 
     Converts a directory name to an SVN URL.
     """
     parser = OptionParser(usage=usage)
     (opts, args) = parser.parse_args();
     if (len(args) != 1):
-        parser.error("No dirname supplied.");
+        parser.error("No dir_name supplied.");
         
     svn_url = dirname_to_svn_url(args[0])
     print(svn_url)

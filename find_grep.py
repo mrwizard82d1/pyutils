@@ -22,7 +22,7 @@ def find_grep(start, file_name_pattern, content_pattern):
 
 if __name__ == '__main__':
     usage = """
-    %prog [options] [dirname (default current)]
+    %prog [options] [dir_name (default current)]
 
     Find all matching files containing a pattern within a directory.
     """

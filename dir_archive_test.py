@@ -24,34 +24,34 @@ class DirArchiveNameTest(unittest.TestCase):
                           dir_archive.ZipDirArchive, os.getcwd(), None)
         
     def testDirnameNoPkgName(self):
-        """Verify package name correct when dirname supplied."""
+        """Verify package name correct when dir_name supplied."""
         toTest = dir_archive.ZipDirArchive('le_cheque')
-        self.assertEqual('le_cheque', toTest.dirname)
-        self.assertEqual('le_cheque.zip', toTest.archiveFilename())
+        self.assertEqual('le_cheque', toTest.dir_name)
+        self.assertEqual('le_cheque.zip', toTest.archive_filename())
 
     def testDirnamePkgName(self):
-        """Verify the dirname and package name are both set correctly."""
+        """Verify the dir_name and package name are both set correctly."""
         toTest = dir_archive.TgzDirArchive('ripis', 'olerinis', )
-        self.assertEqual('olerinis.tgz', toTest.archiveFilename())
-        self.assertEqual('ripis', toTest.dirname)
+        self.assertEqual('olerinis.tgz', toTest.archive_filename())
+        self.assertEqual('ripis', toTest.dir_name)
 
     def testNoDirnameNoPkgNameRaisesError(self):
         """Verify an error occurs if no archiveBase is supplied."""
         self.assertRaises(AssertionError, dir_archive.TgzArchive, None)
 
     def testNoDirnamePkgName(self):
-        """Verify the dirname if only the package name if supplied."""
+        """Verify the dir_name if only the package name if supplied."""
         filename = 'quaerunt'
-        toTest = dir_archive.ZipArchive(archiveBase=filename)
-        self.assertEqual(None, toTest.dirname)
-        self.assertEqual(filename + toTest.archiveExt(),
-                         toTest.archiveFilename())
+        toTest = dir_archive.ZipArchive(archive_base=filename)
+        self.assertEqual(None, toTest.dir_name)
+        self.assertEqual(filename + toTest.archive_ext(),
+                         toTest.archive_filename())
 
     def testRootOnlyNoPkgname(self):
         """Verify the package name is correct if the dir is root."""
         toTest = dir_archive.ZipDirArchive('/')
-        self.assertEqual('root.zip', toTest.archiveFilename())
-        self.assertEqual('/', toTest.dirname)
+        self.assertEqual('root.zip', toTest.archive_filename())
+        self.assertEqual('/', toTest.dir_name)
         
         
 class ArchiveTest(object):
@@ -197,10 +197,10 @@ class ArchiveTest(object):
         """Verify archiving and extracting an empty directory."""
         archive = self.toTestArchive(self._empty_dirname)
         archive.archive()
-        self.assertTrue(os.path.isfile(archive.archiveFilename()))
-        self.assertTrue(os.stat(archive.archiveFilename()).st_size > 0)
+        self.assertTrue(os.path.isfile(archive.archive_filename()))
+        self.assertTrue(os.stat(archive.archive_filename()).st_size > 0)
         os.rmdir(self._empty_dirname)
-        extractor = self.toTestExtract(archive._archiveBase)
+        extractor = self.toTestExtract(archive._archive_base)
         extractor.extract()
         self.assertTrue(os.path.isdir(self._empty_dirname))
         self.assertTrue(len(os.listdir(self._empty_dirname)) == 0)
@@ -210,9 +210,9 @@ class ArchiveTest(object):
         directory but includes files."""
         archive = self.toTestArchive(self._emptyTreeRoot)
         archive.archive()
-        self.assertTrue(os.path.isfile(archive.archiveFilename()))
+        self.assertTrue(os.path.isfile(archive.archive_filename()))
         shutil.rmtree(self._emptyTreeRoot)
-        extractor = self.toTestExtract(archive._archiveBase)
+        extractor = self.toTestExtract(archive._archive_base)
         extractor.extract()
         self.assertTree(self._emptyTree, self._emptyTreeRoot)
 
@@ -220,9 +220,9 @@ class ArchiveTest(object):
         """Verify that archiving a subdirectory includes file content."""
         archive = self.toTestArchive(self._contentTreeRoot)
         archive.archive()
-        self.assertTrue(os.path.isfile(archive.archiveFilename()))
+        self.assertTrue(os.path.isfile(archive.archive_filename()))
         shutil.rmtree(self._contentTreeRoot)
-        extractor = self.toTestExtract(archive._archiveBase)
+        extractor = self.toTestExtract(archive._archive_base)
         extractor.extract()
         self.assertTree(self._contentTree, self._contentTreeRoot,
                         content=self._content)
@@ -231,9 +231,9 @@ class ArchiveTest(object):
         """Archive and extract a subdirectory restores time stamps."""
         archive = self.toTestArchive(self._contentTreeRoot)
         archive.archive()
-        self.assertTrue(os.path.isfile(archive.archiveFilename()))
+        self.assertTrue(os.path.isfile(archive.archive_filename()))
         shutil.rmtree(self._contentTreeRoot)
-        extractor = self.toTestExtract(archive._archiveBase)
+        extractor = self.toTestExtract(archive._archive_base)
         extractor.extract()
         self.assertTree(self._contentTree, self._contentTreeRoot,
                         times=self._contentTimes)

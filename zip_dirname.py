@@ -11,9 +11,9 @@ from dir_archiver import ZipArchive
 
 
 if __name__ == '__main__':
-    usage = """%prog [options] dirname
+    usage = """%prog [options] dir_name
 
-    Archive dirname into a .zip file.
+    Archive dir_name into a .zip file.
     """
     parser = OptionParser(usage=usage)
     parser.add_option('-z', '--zipname',
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
     if len(args) != 1:
-        parser.error("Exactly one dirname required.")
+        parser.error("Exactly one dir_name required.")
 
     dirname = args[0]
     zipname = os.path.basename(dirname) + '.zip'
