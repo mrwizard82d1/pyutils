@@ -7,7 +7,7 @@
 from optparse import OptionParser
 import os
 
-from dir_archiver import ZipArchive
+from dir_archive import ZipDirArchive
 
 
 if __name__ == '__main__':
@@ -29,9 +29,9 @@ if __name__ == '__main__':
         parser.error("Exactly one dir_name required.")
 
     dirname = args[0]
-    zipname = os.path.basename(dirname) + '.zip'
-    zipper = ZipArchive(dirname, zipname)
-    zipper.execute()
+    zipname = os.path.basename(dirname)
+    zipper = ZipDirArchive(dirname, zipname)
+    zipper.archive()
     
     
     
