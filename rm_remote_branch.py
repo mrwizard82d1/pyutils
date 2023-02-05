@@ -16,8 +16,8 @@ def create_local_rm_command(branch):
     return result
 
 
-def create_remote_rm_command(origin, branch):
-    result = f'{git_executable_path()} push --delete {origin} {branch}'
+def create_remote_rm_command(remote, branch):
+    result = f'{git_executable_path()} push --delete {remote} {branch}'
     return result
 
 
@@ -30,7 +30,7 @@ def rm_branch(command):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Remove local and remote branch.')
     parser.add_argument('branch', help='The branch to remove.')
-    parser.add_argument('-o', '--origin', default='origin',
+    parser.add_argument('-r', '--remote', default='origin',
                         help='The remote from which to delete the branch. (Default: origin)')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='Enable verbose output.')
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
 
     try:
-        rm_remote_branch_command = create_remote_rm_command(args.origin, args.branch)
+        rm_remote_branch_command = create_remote_rm_command(args.remote, args.branch)
         rm_remote_status = rm_branch(rm_remote_branch_command)
         if rm_remote_status != 0:
             print(f'Command, "{rm_remote_branch_command}", failed: {rm_remote_status}', file=sys.stderr)
